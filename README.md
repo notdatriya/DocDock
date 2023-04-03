@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # doc_dock
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# DocDock
+>>>>>>> c61bb423a3cffc2cc936079b926f2c02de52731f
