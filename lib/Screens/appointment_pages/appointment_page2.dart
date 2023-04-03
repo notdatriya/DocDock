@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../CustomUI/doc_list.dart';
@@ -16,163 +15,174 @@ class AppointmentPage2 extends StatefulWidget {
 }
 
 class _AppointmentPage2State extends State<AppointmentPage2> {
-  var docData={};
-
+  // getting data from server
   void getDocData() async {
-    print('yes');
-      var url = Uri.parse('http://192.168.136.165:3000/hello');
-      var response = await http.get(url);
-      print('ok');
-      print(response.statusCode);
-      print((jsonDecode(response.body)).toString());
-      setState(() {
-        // Doctor.docList = ((response.body).toString() as dynamic).map((data) => Doctor.fromJson(data)).toList();
-        Doctor.docList = (jsonDecode(response.toString()) as List<dynamic>)
-            .map((dynamic personJson) => Doctor.fromJson(personJson))
-            .toList();
-        print("Doctor.docList");
-        print('s');
-      });
-    }
+    var url = Uri.parse('http://192.168.0.107:3000/hello');
+    var response = await http.get(url);
+    print(response.statusCode);
 
-    @override
-    void initState()
-    {
+    // decoding the response
+    print((jsonDecode(response.body)).toString());
+    setState(() {
+      // converting response to string
+      String dataString = (response.body).toString();
 
-      print("ddd");
-      getDocData();
-      super.initState();
+      // creating dynamic list from the response
+      List<dynamic> listgh = (json
+          .decode(dataString)
+          .map((data) => Doctor.fromJson(data))).toList();
 
-    }
+      // converting dynamic list to list of type Doctor
+      Doctor.docList = listgh.cast<Doctor>();
+      print(Doctor.docList[0].name);
+    });
+  }
+
+  @override
+  void initState() {
+    print("ddd");
+    getDocData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.of(context).size.height;
-    final width=MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xff151413),
-      body: Stack(
-        children:[
-          Column(
+        backgroundColor: Color(0xff151413),
+        body: Stack(
           children: [
-            SizedBox(height: height*.12,),
-            Row(crossAxisAlignment:CrossAxisAlignment.start,
+            Column(
               children: [
-                SizedBox(width: width*.08,),
-                const Text("Select Doctor",style: TextStyle(
-                  color:Colors.white70,
-                  fontSize:25,
-                  fontWeight: FontWeight.bold,
-                ),)
-              ],),
-            // Row(
-            //   children: [
-            //     Icon(Icons.search),
-            //     TextField(
-            //       controller: _textEditingController,
-            //       decoration: InputDecoration(
-            //         fillColor: Color(0xff2A2C28),
-            //         hintText: 'Search...',
-            //         prefixIcon: Icon(Icons.search),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-           // SizedBox(height:2),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              height: height * .8,
-              child: ListView.builder(
-                  itemCount: Doctor.docList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return DoctorList(index: index, docList: Doctor.docList);
-                  }),
-            ),
-          ],),
-          Positioned(
-            bottom: height*.92,
-            left: width*.07,
-            child: Row(
-              children: _buildIndicator(),
-            ),
-          ),
-          Positioned(
-            top: height*.92,
-            right: width*.07,
-            child: ElevatedButton(
-              onPressed: (){getDocData();},
-              child: Text('Press me'),
-            ),
-          ),
-          // Positioned(
-          //     top:height*.88,right:width*.05,
-          //     child: SizedBox(
-          //       height: 60,
-          //       width: 60,
-          //       child: FloatingActionButton(
-          //           onPressed: (){
-          //             setState(() {
-          //               //currentIndex+=1;
-          //               Navigator.push(
-          //                   context,
-          //                   MaterialPageRoute(builder: (context) => AppointmentPage3()
-          //                   ));
-          //             }
-          //             );
-          //           },
-          //           child: Icon(Icons.arrow_forward,color: Colors.black ,),
-          //           backgroundColor:Color(0xff6FBDB4)
-          //       ),
-          //     )
-          // ),
-          Positioned(
-              top:height*.88,left:width*.05,
-              child: SizedBox(
-                height: 60,
-                width: 60,
-                child: FloatingActionButton(
-                    onPressed: (){
-                      setState(() {
-                        //currentIndex+=1;
-                        Navigator.pop(
-                            context
-                            );
-                      }
-                      );
-                    },
-                    child: Icon(Icons.arrow_back,color: Colors.black ,),
-                    backgroundColor:Color(0xff6FBDB4)
+                SizedBox(
+                  height: height * .12,
                 ),
-              )
-          ),
-        ],
-
-      )
-    );
-
-}
-List<Widget> _buildIndicator() {
-  List<Widget> indicators = [];
-
-  // for (int i = 0; i < 4; i++) {
-  //   if (currentIndex <= i-1) {
-  //     indicators.add(_indicator(true));
-  //   } else {
-  //     indicators.add(_indicator(false));
-  //   }
-  // }
-
-  for (int i = 0; i < 4; i++) {
-    if (1 <= i-1) {
-      indicators.add(_indicator(true));
-    } else {
-      indicators.add(_indicator(false));
-    }
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width * .08,
+                    ),
+                    const Text(
+                      "Select Doctor",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+                // Row(
+                //   children: [
+                //     Icon(Icons.search),
+                //     TextField(
+                //       controller: _textEditingController,
+                //       decoration: InputDecoration(
+                //         fillColor: Color(0xff2A2C28),
+                //         hintText: 'Search...',
+                //         prefixIcon: Icon(Icons.search),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height:2),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  height: height * .8,
+                  child: ListView.builder(
+                      itemCount: Doctor.docList.length,
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return DoctorList(
+                            index: index, docList: Doctor.docList);
+                      }),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: height * .92,
+              left: width * .07,
+              child: Row(
+                children: _buildIndicator(),
+              ),
+            ),
+            Positioned(
+              top: height * .92,
+              right: width * .07,
+              child: ElevatedButton(
+                onPressed: () {
+                  getDocData();
+                },
+                child: Text('Press me'),
+              ),
+            ),
+            // Positioned(
+            //     top:height*.88,right:width*.05,
+            //     child: SizedBox(
+            //       height: 60,
+            //       width: 60,
+            //       child: FloatingActionButton(
+            //           onPressed: (){
+            //             setState(() {
+            //               //currentIndex+=1;
+            //               Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(builder: (context) => AppointmentPage3()
+            //                   ));
+            //             }
+            //             );
+            //           },
+            //           child: Icon(Icons.arrow_forward,color: Colors.black ,),
+            //           backgroundColor:Color(0xff6FBDB4)
+            //       ),
+            //     )
+            // ),
+            Positioned(
+                top: height * .88,
+                left: width * .05,
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          //currentIndex+=1;
+                          Navigator.pop(context);
+                        });
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                      ),
+                      backgroundColor: Color(0xff6FBDB4)),
+                )),
+          ],
+        ));
   }
-  return indicators;
-}
+
+  List<Widget> _buildIndicator() {
+    List<Widget> indicators = [];
+
+    // for (int i = 0; i < 4; i++) {
+    //   if (currentIndex <= i-1) {
+    //     indicators.add(_indicator(true));
+    //   } else {
+    //     indicators.add(_indicator(false));
+    //   }
+    // }
+
+    for (int i = 0; i < 4; i++) {
+      if (1 <= i - 1) {
+        indicators.add(_indicator(true));
+      } else {
+        indicators.add(_indicator(false));
+      }
+    }
+    return indicators;
+  }
 }
 
 @override
@@ -187,7 +197,6 @@ Widget build(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-
           alignment: Alignment.center,
           // padding: const EdgeInsets.only(top: 0.0),
           child: SizedBox(
@@ -208,7 +217,7 @@ Widget _indicator(bool isActive) {
     margin: const EdgeInsets.only(right: 5.0),
     decoration: BoxDecoration(
       // backgroundBlendMode: BlendMode.darken,
-      color: isActive ?Colors.white70:Color(0xff6FBDB4),
+      color: isActive ? Colors.white70 : Color(0xff6FBDB4),
       borderRadius: BorderRadius.circular(9),
     ),
   );
