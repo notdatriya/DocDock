@@ -13,6 +13,11 @@ app.listen(port,()=>{
     console.log(`server is running at port ${port}`);
 });
 
+app.get('/hello',(req,res)=>{
+    res.json({
+        message:"hello world"
+    })
+})
 
 // app.get('/doctor',(req,res)=>{
 //     res.json([{
