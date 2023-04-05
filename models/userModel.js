@@ -9,14 +9,19 @@ mongoose.connect(db_link)
     console.log(err);
 });
 
-const userSchema=mongoose.Schema({
 
+const userSchema=mongoose.Schema({
+    
     patient_id:{
         type:Number
     },
 
-    BloodGroup:{
+    BloodtestReport:{
+        type:String
+    },
+
+    ECGReport:{
         type:String
     }
-    
+  
 })

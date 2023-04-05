@@ -19,7 +19,7 @@ authRouter.post('/signup',async (req,res)=>{
             res.json({
                 success:1,
                 message:"User registered successfully",
-                data:result
+                data:req.body
             })
         }
     });
@@ -60,8 +60,27 @@ authRouter.post('/login',async(req,res)=>{
     })
 
 })
-module.exports=authRouter;
 
+
+authRouter.post('/doctor',async (req,res)=>{
+    let {FirstName,LastName,Age,gender,email,phone_no,Degree,Specialization,Years_of_experience}=req.body;
+    connection.query("insert into doctor (FirstName,LastName,Age,gender,email,phone_no,Degree,Specialization,Years_of_experience) values (?,?,?,?,?,?,?,?,?)",[FirstName,LastName,Age,gender,email,phone_no,Degree,Specialization,Years_of_experience],(err,result)=>{
+        if(err){
+            res.json({
+                error:err.message,
+                success:0
+            })
+        }
+        else if(result){
+            res.json({
+                success:1,
+                message:"Doctor registered successfully",
+                data:req.body
+            })
+        }
+    })
+})
+module.exports=authRouter;
 
 
 
