@@ -87,7 +87,7 @@ class _AppointmentPage1State extends State<AppointmentPage1> {
                                            ElevatedButton(
                                            onPressed:(){
                                            setState(() {
-                                             field="MBBS";
+                                             field="Physician";
                                            for(int i =0;i<12;i++)
                                              {
                                                if(i==0)
@@ -127,6 +127,7 @@ class _AppointmentPage1State extends State<AppointmentPage1> {
                                             ElevatedButton(
                                                 onPressed:(){
                                                   setState(() {
+                                                    field="Cardiologist";
                                                     for(int i =0;i<12;i++)
                                                     {
                                                       if(i==2)
@@ -247,7 +248,7 @@ class _AppointmentPage1State extends State<AppointmentPage1> {
                                         ElevatedButton(
                                             onPressed:(){
                                               setState(() {
-                                                field="Ayurvedic practitioner";
+                                                field="Ayurveda";
                                                 for(int i =0;i<12;i++)
                                                 {
                                                   if(i==8)
@@ -369,7 +370,7 @@ class _AppointmentPage1State extends State<AppointmentPage1> {
                           //currentIndex+=1;
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AppointmentPage2()
+                              MaterialPageRoute(builder: (context) => AppointmentPage2(field:field)
                               ));
                         }
                         );
