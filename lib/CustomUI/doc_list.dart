@@ -124,9 +124,10 @@ class DoctorList extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
+
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AppointmentPage3()));
+                      MaterialPageRoute(builder: (context) => AppointmentPage3(currDocId: docList[index].doctorId,)));
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Colors.black87:Color(0xffE2585D)),

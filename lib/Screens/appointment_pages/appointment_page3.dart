@@ -6,25 +6,33 @@ import '../../models/Doctor.dart';
 import 'appointment_page4.dart';
 
 class AppointmentPage3 extends StatefulWidget {
-  const AppointmentPage3({Key? key}) : super(key: key);
-
+  const AppointmentPage3({Key? key,required this.currDocId}) : super(key: key);
+  final int currDocId;
   @override
   State<AppointmentPage3> createState() => _AppointmentPage3State();
 }
 
 class _AppointmentPage3State extends State<AppointmentPage3> {
+
+
   DateTime _dateTime=DateTime.now();
   void _showDatePicker()
   {
+
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2023),
       lastDate: DateTime(2025),
+
     ).then((value) {
       setState(() {
         _dateTime=value!;
-      });
+
+        print(_dateTime.weekday);
+      }
+
+      );
     }
     );
   }
@@ -50,7 +58,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                   ),)
                 ],),
               SizedBox(height: 15,),
-              DocTile(1, height, width,Doctor.docList),
+              DocTile(widget.currDocId, height, width,Doctor.docList),
               Container(
                 decoration: BoxDecoration(
                   color: Color(0xff2A2C28),
