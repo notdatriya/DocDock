@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../CustomUI/reusable_widgets.dart';
 import '../../models/Doctor.dart';
 import 'appointment_page4.dart';
+import 'package:intl/intl.dart';
+
 
 class AppointmentPage3 extends StatefulWidget {
   const AppointmentPage3({Key? key,required this.currDocId}) : super(key: key);
@@ -14,28 +16,44 @@ class AppointmentPage3 extends StatefulWidget {
 
 class _AppointmentPage3State extends State<AppointmentPage3> {
 
+  DateTime _selectedDate=DateTime.now();
 
-  DateTime _dateTime=DateTime.now();
-  void _showDatePicker()
-  {
-
-    showDatePicker(
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2025),
-
-    ).then((value) {
-      setState(() {
-        _dateTime=value!;
-
-        print(_dateTime.weekday);
-      }
-
-      );
-    }
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now().add(Duration(days: 7)),
     );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
   }
+
+  // DateTime _dateTime=DateTime.now();
+  // void _showDatePicker()
+  // {
+  //
+  //   showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(2023),
+  //     lastDate: DateTime.now().add(Duration(days: 7)),
+  //     //DateTime(2023,4,DateTime.now()+7),
+  //
+  //   ).then((value) {
+  //     setState(() {
+  //       _dateTime=value!;
+  //
+  //       print(_dateTime.weekday);
+  //     }
+  //
+  //     );
+  //   }
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
@@ -70,19 +88,25 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                 width: width*.9,
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_back_ios,color: Colors.white38,),
-                    SizedBox(width: 60,),
-                    Icon(Icons.calendar_month),
-                    SizedBox(width: 10,),
-                    Text(_dateTime.weekday.toString()),
-                    SizedBox(width: 5,),
-                    Text(_dateTime.day.toString()),
-                    SizedBox(width: 5,),
-                    Text(_dateTime.month.toString()),
-                    SizedBox(width: 140,),
+                    // Icon(Icons.arrow_back_ios,color: Colors.white38,),
+                    // SizedBox(width: 60,),
+                    // Icon(Icons.calendar_month),
+                    // SizedBox(width: 10,),
+                    // Text(_dateTime.weekday.toString()),
+                    // SizedBox(width: 5,),
+                    // Text(_dateTime.day.toString()),
+                    // SizedBox(width: 5,),
+                    // Text(_dateTime.month.toString()),
+                    // SizedBox(width: 140,),
                     IconButton(
-                        onPressed: _showDatePicker,
-                        icon: Icon(Icons.arrow_forward_ios,)),
+                        onPressed:() => _selectDate(context),
+                        //_showDatePicker,
+                        icon: Icon(Icons.calendar_month,)),
+                    if (_selectedDate != null)
+                      Text(
+                        DateFormat('EEEE, d\'${_getOrdinalSuffix(_selectedDate.day)}\' MMMM').format(_selectedDate),
+                        style: TextStyle(fontSize: 17),
+                      ),
                   ],
                 ),
               ),
@@ -121,7 +145,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                         //currentIndex+=1;
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => AppointmentPage4()
+                            MaterialPageRoute(builder: (context) => AppointmentPage4(currDocId: widget.currDocId,)
                             ));
                       }
                       );
@@ -216,3 +240,20 @@ Widget _indicator(bool isActive) {
     ),
   );
 }
+
+String _getOrdinalSuffix(int day) {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+  switch (day % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
+}
+

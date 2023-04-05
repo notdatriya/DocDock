@@ -1,9 +1,12 @@
 
+import 'package:doc_dock/models/Doctor.dart';
 import 'package:flutter/material.dart';
 
-class AppointmentPage4 extends StatefulWidget {
-  const AppointmentPage4({Key? key}) : super(key: key);
+import '../../CustomUI/reusable_widgets.dart';
 
+class AppointmentPage4 extends StatefulWidget {
+  const AppointmentPage4({Key? key,required this.currDocId}) : super(key: key);
+  final int currDocId;
   @override
   State<AppointmentPage4> createState() => _AppointmentPage4State();
 }
@@ -30,9 +33,15 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                 ),)
               ],),
             SizedBox(height: 15,),
+            DocTile(widget.currDocId,height,width,Doctor.docList),
           ]
         ),
 
+
+
+
+
+        //top indicator
         Positioned(
           bottom: height*.92,
           left: width*.07,
@@ -40,7 +49,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
             children: _buildIndicator(),
           ),
         ),
-
+        //floating action button
         Positioned(
             top:height*.88,left:width*.05,
             child: SizedBox(
