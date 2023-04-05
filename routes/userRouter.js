@@ -15,6 +15,7 @@ connection.query("select * from doctor where specialization=?",[speciality],asyn
     else if(result){
         res.json(result)
     }
+    //test
 
 })
 })
