@@ -4,7 +4,7 @@ class Doctor {
 
   final int doctorId;
   final String name;
-  final String experience;
+  final int experience;
   final String clinic;
   final String speciality;
   final String imageURL;
@@ -13,19 +13,19 @@ class Doctor {
     this.doctorId = 0,
     this.speciality = "",
     this.name = "",
-    this.experience = "0 yrs",
+    this.experience = 0,
     this.clinic = "",
     this.imageURL = "",
   });
 
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
-      doctorId: json['doctorId'],
-      speciality: json['speciality'],
-      name: json['name'],
-      experience: json['experience'],
-      clinic: json['clinic'],
-      imageURL: json['imageURL'],
+      doctorId: json['doctor_id'],
+      speciality: json['Specialization'],
+      name: json['FirstName'],
+      experience: json['Years_of_experience'],
+      // clinic: json['clinic'],
+      // imageURL: json['imageURL'],
     );
   }
 }

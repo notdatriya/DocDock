@@ -5,21 +5,22 @@ import '../models/Doctor.dart';
 
 //import '../models/Doctor.dart';
 class DoctorList extends StatelessWidget {
-  const DoctorList({Key? key, required this.index, required this.docList}) : super(key: key);
+  const DoctorList({Key? key, required this.index, required this.docList})
+      : super(key: key);
   final int index;
   final List<Doctor> docList;
 
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.of(context).size.height;
-    final width=MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
         color: Color(0xff2A2C28),
         borderRadius: BorderRadius.circular(10),
       ),
       height: 180.0,
-      padding: const EdgeInsets.only(left: 10, top: 0,right: 10,bottom: 0),
+      padding: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
       margin: const EdgeInsets.only(bottom: 10, top: 10),
       width: width,
       child: Column(
@@ -45,9 +46,8 @@ class DoctorList extends StatelessWidget {
                     left: 0,
                     right: 2,
                     child: SizedBox(
-                      height: height*.07,
-                      child:
-                      Image.asset(docList[index].imageURL),
+                      height: height * .07,
+                      child: Image.asset(docList[index].imageURL),
                     ),
                   ),
                   Positioned(
@@ -57,12 +57,17 @@ class DoctorList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10,),
-                        Text(docList[index].name,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          docList[index].name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: Colors.white70,),),
+                            color: Colors.white70,
+                          ),
+                        ),
                         Row(
                           children: [
                             Text(
@@ -73,9 +78,11 @@ class DoctorList extends StatelessWidget {
                                 color: Colors.white70,
                               ),
                             ),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Text(
-                              docList[index].experience,
+                              docList[index].experience.toString(),
                               style: TextStyle(
                                 //fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -97,51 +104,74 @@ class DoctorList extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 40,),
+              SizedBox(
+                width: 40,
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ViewProfile(doctorId: docList[index].doctorId,)));
+                      MaterialPageRoute(
+                          builder: (context) => ViewProfile(
+                                doctorId: docList[index].doctorId,
+                              )));
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Colors.black87:Color(0xffE2585D)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) =>
+                      states.contains(MaterialState.pressed)
+                          ? Colors.black87
+                          : Color(0xffE2585D)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
                 ),
-                child:Text('View Profile',
+                child: Text(
+                  'View Profile',
                   style: TextStyle(
                     fontWeight: FontWeight.w100,
                     fontSize: 15,
                     color: Colors.white70,
-                  ),),
+                  ),
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
-
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AppointmentPage3(currDocId: docList[index].doctorId,)));
+                      MaterialPageRoute(
+                          builder: (context) => AppointmentPage3(
+                                currDocId: docList[index].doctorId,
+                              )));
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Colors.black87:Color(0xffE2585D)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) =>
+                      states.contains(MaterialState.pressed)
+                          ? Colors.black87
+                          : Color(0xffE2585D)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
                 ),
-                child:Text('Book appointment',
+                child: Text(
+                  'Book appointment',
                   style: TextStyle(
                     fontWeight: FontWeight.w100,
                     fontSize: 15,
                     color: Colors.white70,
-                  ),),
-
+                  ),
+                ),
               ),
-              SizedBox(width: 20,),
+              SizedBox(
+                width: 20,
+              ),
             ],
           )
         ],

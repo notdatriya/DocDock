@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AppointmentPage2 extends StatefulWidget {
-  const AppointmentPage2({Key? key,required this.field}) : super(key: key);
+  const AppointmentPage2({Key? key, required this.field}) : super(key: key);
   final String field;
   @override
   State<AppointmentPage2> createState() => _AppointmentPage2State();
@@ -19,9 +19,10 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
 
   // getting data from server
   void getDocData() async {
-    //var url = Uri.parse('http://192.168.0.137:3000/hello');
+    // var url = Uri.parse('http://192.168.0.137:3000/hello');
     print('${widget.field}');
-    var url = Uri.parse('http://192.168.0.137:3000/appointment/${widget.field}');
+    var url =
+        Uri.parse('https://docdock.onrender.com/appointment/${widget.field}');
     var response = await http.get(url);
     print(response.statusCode);
 
