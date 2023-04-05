@@ -80,6 +80,27 @@ authRouter.post('/doctor',async (req,res)=>{
         }
     })
 })
+
+authRouter.post('/avail',async (req,res)=>{
+    let {doctor_id,_date,slot,_status}=req.body;
+    connection.query("insert into availability (doctor_id,_date,slot,_status) values (?,?,?,?)",[doctor_id,_date,slot,_status],(err,result)=>{
+        if(err){
+            res.json({
+                error:err.message,
+                success:0
+            })
+        }
+        else if(result){
+            res.json({
+                success:1,
+                message:"slots registered successfully",
+                data:req.body
+            })
+        }
+    })
+})
+
+
 module.exports=authRouter;
 
 

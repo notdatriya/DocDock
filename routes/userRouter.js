@@ -9,16 +9,11 @@ let speciality=req.params.sp;
 connection.query("select * from Doctor where specialization=?",[speciality],async (err,result)=>{
     if(err){
         res.json({
-            error:err.message,
-            success:0
+            error:err.message
         })
     }
     else if(result){
-        res.json({
-            success:1,
-            message:"Doctors fetched successfully",
-            data:result
-        })
+        res.json(result)
     }
 
 })

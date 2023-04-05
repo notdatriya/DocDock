@@ -13,6 +13,7 @@ app.listen(port,()=>{
     console.log(`server is running at port ${port}`);
 });
 
+
 // app.get('/doctor',(req,res)=>{
 //     res.json([{
 //         "doctorId":0,
