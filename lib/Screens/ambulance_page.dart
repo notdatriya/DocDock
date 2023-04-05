@@ -11,6 +11,6 @@ class AmbulancePage extends StatefulWidget {
 class _AmbulancePageState extends State<AmbulancePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(backgroundColor: Color(0xff151413),);
   }
 }

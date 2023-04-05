@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../models/Doctor.dart';
 
 class ViewProfile extends StatefulWidget {
-  const ViewProfile({Key? key}) : super(key: key);
-
+  const ViewProfile({Key? key,required this.doctorId}) : super(key: key);
+  final int doctorId;
   @override
   State<ViewProfile> createState() => _ViewProfileState();
 }
@@ -78,22 +78,24 @@ class _ViewProfileState extends State<ViewProfile> {
               padding: const EdgeInsets.all(10),
               child: Stack(
                 children: [
-                  // Positioned(
-                  //   top: 0,
-                  //   left: 0,
-                  //   // right:10,
-                  //   child: SizedBox(
-                  //     height: height*.35,
-                  //     width: width,
-                  //     child: Image.asset(docList[widget.doctorId].imageURL, fit: BoxFit.cover,),
-                  //
-                  //   ),
-                  // ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    // right:10,
+                    child: SizedBox(
+                      height: height*.35,
+                      width: width,
+                      child: Image.asset(docList[widget.doctorId].imageURL,fit:BoxFit.contain,),
+
+                    ),
+                  ),
 
                 ],
               ),
             ),
           ),
+
+
           Positioned(
             bottom: 0,
             left: 0,
@@ -120,8 +122,8 @@ class _ViewProfileState extends State<ViewProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            // docList[widget.doctorId].name,
-                            "name",
+                            docList[widget.doctorId].name,
+                            //"name",
                             style: const TextStyle(
                               color: Colors.white70,
                               fontWeight: FontWeight.bold,

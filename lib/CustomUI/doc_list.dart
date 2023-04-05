@@ -109,7 +109,7 @@ class DoctorList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ViewProfile()));
+                      MaterialPageRoute(builder: (context) => ViewProfile(doctorId: docList[index].doctorId,)));
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Colors.black87:Color(0xffE2585D)),

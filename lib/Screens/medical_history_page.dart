@@ -11,6 +11,6 @@ class MedicalHistoryPage extends StatefulWidget {
 class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(backgroundColor: Color(0xff151413),);
   }
 }

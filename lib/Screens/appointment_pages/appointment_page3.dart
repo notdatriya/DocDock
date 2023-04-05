@@ -145,7 +145,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                         //currentIndex+=1;
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => AppointmentPage4(currDocId: widget.currDocId,)
+                            MaterialPageRoute(builder: (context) => AppointmentPage4(currDocId: widget.currDocId,selectedDate: _selectedDate,)
                             ));
                       }
                       );
