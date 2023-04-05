@@ -1,10 +1,10 @@
 const mysql=require('mysql');
 
 let connection=mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'F@keaccount1',
-    database:'docdock'
+    host:'sql12.freemysqlhosting.net',
+    user:'sql12611409',
+    password:'cSbZ6gmQuL',
+    database:'sql12611409'
 });
 
 connection.connect((err)=>{
