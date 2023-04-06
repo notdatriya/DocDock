@@ -176,6 +176,32 @@ authRouter.post('/getavail',async (req,res)=>{
     })
 })
 
+authRouter.post('/book',async (req,res)=>{
+    dbconnection.getConnection((err,connection)=>{
+        if(err){
+            res.json({
+                error:error.message
+            })
+        }
+        else{
+            let {doctor_id,_date,slot}=req.body;
+            connection.query("update avail set _status=? where doctor_od=? and _date=? and slot=?",[false,doctor_id,_date,slot],(err,result)=>{
+                if(err){
+                    res.json({
+                        error:err.message
+                    })
+                }
+                else{
+                    res.json({
+                        message:"slot booked"
+                    })
+                }
+            })
+        }
+        connection.release();
+    })
+})
+
 
 
 
