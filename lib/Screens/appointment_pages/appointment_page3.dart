@@ -17,17 +17,17 @@ class AppointmentPage3 extends StatefulWidget {
 class _AppointmentPage3State extends State<AppointmentPage3> {
   //change
   List slotlist = [];
-  void getSlotData() async {
-    var url = Uri.parse('https://docdock.onrender.com/getavail');
-    var response = await http.get(url);
-    print(response.statusCode);
-    setState(() {
-      List<dynamic> responseList = jsonDecode(response.toString());
-      for (var item in responseList) {
-        print(item['slot']);
-      }
-    });
-  }
+  // void getSlotData() async {
+  //   var url = Uri.parse('https://docdock.onrender.com/getavail');
+  //   var response = await http.get(url);
+  //   print(response.statusCode);
+  //   setState(() {
+  //     List<dynamic> responseList = jsonDecode(response.toString());
+  //     for (var item in responseList) {
+  //       print(item['slot']);
+  //     }
+  //   });
+  // }
   // till here
 
   DateTime _selectedDate = DateTime.now();
@@ -41,15 +41,15 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
     );
     if (picked != null && picked != _selectedDate) {
       //change
-      var url = Uri.parse('https://docdock.onrender.com/getavail');
-      var response = await http.post(url, body: {
-        "doctor_id": widget.currDocId.toString(),
-        "_date": picked.toString()
-      });
+      // var url = Uri.parse('https://docdock.onrender.com/getavail');
+      // var response = await http.post(url, body: {
+      //   "doctor_id": widget.currDocId.toString(),
+      //   "_date": picked.toString()
+      // });
       // till here
       setState(() {
         _selectedDate = picked;
-
+       // getSlotData();
       });
     }
   }
@@ -112,7 +112,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
 
             // - 1 bcs of index error (auto inc starts from 1 in mysql but in list (flutter) it starts from 0)
 
-            DocTile(widget.currDocId - 1, height, width, Doctor.docList),
+            DocTile(0, height, width, Doctor.docList),
             Container(
               decoration: BoxDecoration(
                 color: Color(0xff2A2C28),
