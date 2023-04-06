@@ -84,7 +84,7 @@ Container DocTile(
                     width: 10,
                   ),
                   Text(
-                    docList[index].experience.toString(),
+                    docList[index].experience.toString()+' yrs+',
                     style: TextStyle(
                       //fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -94,7 +94,7 @@ Container DocTile(
                 ],
               ),
               Text(
-                docList[index].clinic,
+                docList[index].degree,
                 style: TextStyle(
                   fontWeight: FontWeight.w100,
                   fontSize: 15,

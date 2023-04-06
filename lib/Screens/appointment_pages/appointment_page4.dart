@@ -37,7 +37,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                 ),)
               ],),
             SizedBox(height: 15,),
-            DocTile(widget.currDocId,height,width,Doctor.docList),
+            DocTile(widget.currDocId-1,height,width,Doctor.docList),
             SizedBox(height: 15,),
             Row(crossAxisAlignment:CrossAxisAlignment.start,
               children: [

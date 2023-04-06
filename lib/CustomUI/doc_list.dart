@@ -82,7 +82,7 @@ class DoctorList extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              docList[index].experience.toString(),
+                              '|  '+docList[index].experience.toString()+' yrs+',
                               style: TextStyle(
                                 //fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -92,7 +92,7 @@ class DoctorList extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          docList[index].clinic,
+                          docList[index].degree,
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 15,
@@ -149,7 +149,9 @@ class DoctorList extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => AppointmentPage3(
                                 currDocId: docList[index].doctorId,
+
                               )));
+                  print(docList[index].doctorId);
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) =>

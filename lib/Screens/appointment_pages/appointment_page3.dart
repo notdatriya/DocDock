@@ -56,6 +56,8 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   // }
   @override
   Widget build(BuildContext context) {
+    print('hello');
+    print(widget.currDocId);
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
@@ -76,7 +78,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                   ),)
                 ],),
               SizedBox(height: 15,),
-              DocTile(widget.currDocId, height, width,Doctor.docList),
+              DocTile(widget.currDocId-1, height, width,Doctor.docList),
               Container(
                 decoration: BoxDecoration(
                   color: Color(0xff2A2C28),
