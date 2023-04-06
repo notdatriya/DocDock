@@ -161,7 +161,7 @@ authRouter.post('/getavail',async (req,res)=>{
         }
         else{
             let {doctor_id,_date}=req.body;
-            connection.query("select slot from availability where doctor_id=? and _date=? and _status=?",[doctor_id,_date,"true"],(err,result)=>{
+            connection.query("select slot from avail where doctor_id=? and _date=? and _status=?",[doctor_id,_date,"true"],(err,result)=>{
                 if(err){
                     res.json({
                         error:err.message,
