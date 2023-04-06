@@ -18,6 +18,7 @@ class AppointmentPage4 extends StatefulWidget {
 class _AppointmentPage4State extends State<AppointmentPage4> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController _notesController=new TextEditingController();
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
@@ -104,6 +105,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(16),
                   ),
+                  controller: _notesController,
                   style: TextStyle(color: Colors.white),
                 ),
               ),

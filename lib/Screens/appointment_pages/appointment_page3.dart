@@ -28,6 +28,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
+
       });
     }
   }
