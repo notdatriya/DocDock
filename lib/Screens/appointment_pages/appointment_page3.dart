@@ -22,7 +22,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
+      firstDate: DateTime.now(),
       lastDate: DateTime.now().add(Duration(days: 7)),
     );
     if (picked != null && picked != _selectedDate) {

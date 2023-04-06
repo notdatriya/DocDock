@@ -85,7 +85,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     child: SizedBox(
                       height: height*.35,
                       width: width,
-                      child: Image.asset(docList[widget.doctorId].imageURL,fit:BoxFit.contain,),
+                      child: Image.asset(docList[widget.doctorId-1].imageURL,fit:BoxFit.contain,),
 
                     ),
                   ),
@@ -122,7 +122,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            docList[widget.doctorId].name,
+                            docList[widget.doctorId-1].name,
                             //"name",
                             style: const TextStyle(
                               color: Colors.white70,
