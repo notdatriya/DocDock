@@ -1,22 +1,35 @@
-
 import 'package:flutter/material.dart';
 
 import '../../CustomUI/reusable_widgets.dart';
 import '../../models/Doctor.dart';
 import 'appointment_page4.dart';
 import 'package:intl/intl.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AppointmentPage3 extends StatefulWidget {
-  const AppointmentPage3({Key? key,required this.currDocId}) : super(key: key);
+  const AppointmentPage3({Key? key, required this.currDocId}) : super(key: key);
   final int currDocId;
   @override
   State<AppointmentPage3> createState() => _AppointmentPage3State();
 }
 
 class _AppointmentPage3State extends State<AppointmentPage3> {
+  List slotlist = [];
 
-  DateTime _selectedDate=DateTime.now();
+  void getSlotData() async {
+    var url = Uri.parse('https://docdock.onrender.com/getavail');
+    var response = await http.get(url);
+    print(response.statusCode);
+    setState(() {
+      List<dynamic> responseList = jsonDecode(response.toString());
+      for (var item in responseList) {
+        print(item['slot']);
+      }
+    });
+  }
+
+  DateTime _selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -26,6 +39,11 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       lastDate: DateTime.now().add(Duration(days: 7)),
     );
     if (picked != null && picked != _selectedDate) {
+      var url = Uri.parse('https://docdock.onrender.com/getavail');
+      var response = await http.post(url, body: {
+        "doctor_id": widget.currDocId.toString(),
+        "_date": picked.toString()
+      });
       setState(() {
         _selectedDate = picked;
       });
@@ -58,130 +76,156 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   Widget build(BuildContext context) {
     print('hello');
     print(widget.currDocId);
-    final height=MediaQuery.of(context).size.height;
-    final width=MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xff151413),
       body: Stack(
-        children:
-        [
-          Column(
-            children:[
-              SizedBox(height: height*.15,),
-              Row(crossAxisAlignment:CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: width*.08,),
-                  Text('Select a time slot',style: TextStyle(
-                    color:Colors.white70,
-                    fontSize:25,
+        children: [
+          Column(children: [
+            SizedBox(
+              height: height * .15,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: width * .08,
+                ),
+                Text(
+                  'Select a time slot',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
-                  ),)
-                ],),
-              SizedBox(height: 15,),
-              DocTile(widget.currDocId-1, height, width,Doctor.docList),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xff2A2C28),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                height: 50.0,
-                padding: const EdgeInsets.only(left: 10, top: 0,right: 10,bottom: 0),
-                margin: const EdgeInsets.only(bottom: 10, top: 10),
-                width: width*.9,
-                child: Row(
-                  children: [
-                    // Icon(Icons.arrow_back_ios,color: Colors.white38,),
-                    // SizedBox(width: 60,),
-                    // Icon(Icons.calendar_month),
-                    // SizedBox(width: 10,),
-                    // Text(_dateTime.weekday.toString()),
-                    // SizedBox(width: 5,),
-                    // Text(_dateTime.day.toString()),
-                    // SizedBox(width: 5,),
-                    // Text(_dateTime.month.toString()),
-                    // SizedBox(width: 140,),
-                    IconButton(
-                        onPressed:() => _selectDate(context),
-                        //_showDatePicker,
-                        icon: Icon(Icons.calendar_month,)),
-                    if (_selectedDate != null)
-                      Text(
-                        DateFormat('EEEE, d\'${_getOrdinalSuffix(_selectedDate.day)}\' MMMM').format(_selectedDate),
-                        style: TextStyle(fontSize: 17),
-                      ),
-                  ],
-                ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+
+            // - 1 bcs of index error (auto inc starts from 1 in mysql but in list (flutter) it starts from 0)
+
+            DocTile(widget.currDocId - 1, height, width, Doctor.docList),
+            Container(
+              decoration: BoxDecoration(
+                color: Color(0xff2A2C28),
+                borderRadius: BorderRadius.circular(10),
               ),
-              Container(
-                // decoration: BoxDecoration(
-                //   color: Color(0xff2A2C28),
-                //   borderRadius: BorderRadius.circular(10),
-                // ),
-                height: 50.0,
-                padding: const EdgeInsets.only(left: 10, top: 0,right: 10,bottom: 0),
-                margin: const EdgeInsets.only(bottom: 10, top: 10),
-                width: width*.9,
-                child: Row(
-                  children: [
-                    Text("Pick time (6 slots available)",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color:Colors.white70),),
-                  ],
-                ),
-              )
-            ]
-        ),
+              height: 50.0,
+              padding:
+                  const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
+              margin: const EdgeInsets.only(bottom: 10, top: 10),
+              width: width * .9,
+              child: Row(
+                children: [
+                  // Icon(Icons.arrow_back_ios,color: Colors.white38,),
+                  // SizedBox(width: 60,),
+                  // Icon(Icons.calendar_month),
+                  // SizedBox(width: 10,),
+                  // Text(_dateTime.weekday.toString()),
+                  // SizedBox(width: 5,),
+                  // Text(_dateTime.day.toString()),
+                  // SizedBox(width: 5,),
+                  // Text(_dateTime.month.toString()),
+                  // SizedBox(width: 140,),
+                  IconButton(
+                      onPressed: () => _selectDate(context),
+                      //_showDatePicker,
+                      icon: Icon(
+                        Icons.calendar_month,
+                      )),
+                  if (_selectedDate != null)
+                    Text(
+                      DateFormat(
+                              'EEEE, d\'${_getOrdinalSuffix(_selectedDate.day)}\' MMMM')
+                          .format(_selectedDate),
+                      style: TextStyle(fontSize: 17),
+                    ),
+                ],
+              ),
+            ),
+            Container(
+              // decoration: BoxDecoration(
+              //   color: Color(0xff2A2C28),
+              //   borderRadius: BorderRadius.circular(10),
+              // ),
+              height: 50.0,
+              padding:
+                  const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
+              margin: const EdgeInsets.only(bottom: 10, top: 10),
+              width: width * .9,
+              child: Row(
+                children: [
+                  Text(
+                    "Pick time (6 slots available)",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white70),
+                  ),
+                ],
+              ),
+            )
+          ]),
           Positioned(
-            bottom: height*.92,
-            left: width*.07,
+            bottom: height * .92,
+            left: width * .07,
             child: Row(
               children: _buildIndicator(),
             ),
           ),
           Positioned(
-              top:height*.88,right:width*.05,
+              top: height * .88,
+              right: width * .05,
               child: SizedBox(
                 height: 60,
                 width: 60,
                 child: FloatingActionButton(
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         //currentIndex+=1;
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => AppointmentPage4(currDocId: widget.currDocId,selectedDate: _selectedDate,)
-                            ));
-                      }
-                      );
+                            MaterialPageRoute(
+                                builder: (context) => AppointmentPage4(
+                                      currDocId: widget.currDocId,
+                                      selectedDate: _selectedDate,
+                                    )));
+                      });
                     },
-                    child: Icon(Icons.arrow_forward,color: Colors.black ,),
-                    backgroundColor:Color(0xff6FBDB4)
-                ),
-              )
-          ),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                    ),
+                    backgroundColor: Color(0xff6FBDB4)),
+              )),
           Positioned(
-              top:height*.88,left:width*.05,
+              top: height * .88,
+              left: width * .05,
               child: SizedBox(
                 height: 60,
                 width: 60,
                 child: FloatingActionButton(
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         //currentIndex+=1;
-                        Navigator.pop(
-                            context
-                        );
-                      }
-                      );
+                        Navigator.pop(context);
+                      });
                     },
-                    child: Icon(Icons.arrow_back,color: Colors.black ,),
-                    backgroundColor:Color(0xff6FBDB4)
-                ),
-              )
-          ),
-      ],
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    backgroundColor: Color(0xff6FBDB4)),
+              )),
+        ],
       ),
     );
+  }
 
-}
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
 
@@ -194,7 +238,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
     // }
 
     for (int i = 0; i < 4; i++) {
-      if (2 <= i-1) {
+      if (2 <= i - 1) {
         indicators.add(_indicator(true));
       } else {
         indicators.add(_indicator(false));
@@ -216,7 +260,6 @@ Widget build(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-
           alignment: Alignment.center,
           // padding: const EdgeInsets.only(top: 0.0),
           child: SizedBox(
@@ -237,7 +280,7 @@ Widget _indicator(bool isActive) {
     margin: const EdgeInsets.only(right: 5.0),
     decoration: BoxDecoration(
       // backgroundBlendMode: BlendMode.darken,
-      color: isActive ?Colors.white70:Color(0xff6FBDB4),
+      color: isActive ? Colors.white70 : Color(0xff6FBDB4),
       borderRadius: BorderRadius.circular(9),
     ),
   );
@@ -258,4 +301,3 @@ String _getOrdinalSuffix(int day) {
       return 'th';
   }
 }
-
