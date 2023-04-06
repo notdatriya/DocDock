@@ -23,6 +23,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       "doctor_id": widget.currDocId.toString(),
       "_date": picked.toString()
     });
+
     print(response.statusCode);
     setState(() {
       List<dynamic> responseList = jsonDecode(response.toString());
@@ -43,6 +44,8 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       lastDate: DateTime.now().add(Duration(days: 7)),
     );
     if (picked != null && picked != _selectedDate) {
+      //change
+      // till here
       setState(() {
         _selectedDate = picked;
         getSlotData(picked);
@@ -108,7 +111,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
 
             // - 1 bcs of index error (auto inc starts from 1 in mysql but in list (flutter) it starts from 0)
 
-            DocTile(widget.currDocId - 1, height, width, Doctor.docList),
+            DocTile(0, height, width, Doctor.docList),
             Container(
               decoration: BoxDecoration(
                 color: Color(0xff2A2C28),
