@@ -17,9 +17,12 @@ class AppointmentPage3 extends StatefulWidget {
 class _AppointmentPage3State extends State<AppointmentPage3> {
   //change
   List slotlist = [];
-  void getSlotData() async {
+  void getSlotData(picked) async {
     var url = Uri.parse('https://docdock.onrender.com/getavail');
-    var response = await http.get(url);
+    var response = await http.post(url, body: {
+      "doctor_id": widget.currDocId.toString(),
+      "_date": picked.toString()
+    });
     print(response.statusCode);
     setState(() {
       List<dynamic> responseList = jsonDecode(response.toString());
@@ -40,15 +43,9 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       lastDate: DateTime.now().add(Duration(days: 7)),
     );
     if (picked != null && picked != _selectedDate) {
-      //change
-      var url = Uri.parse('https://docdock.onrender.com/getavail');
-      var response = await http.post(url, body: {
-        "doctor_id": widget.currDocId.toString(),
-        "_date": picked.toString()
-      });
-      // till here
       setState(() {
         _selectedDate = picked;
+        getSlotData(picked);
       });
     }
   }
