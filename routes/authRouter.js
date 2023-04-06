@@ -167,8 +167,13 @@ authRouter.post('/getavail',async (req,res)=>{
                         error:err.message,
                     })
                 }
-                else if(result){
+                else if(result.length>0){
                     res.json(result)
+                }
+                else{
+                    res.json([{
+                        slot:"No slots available :("
+                    }])
                 }
             })
         }
