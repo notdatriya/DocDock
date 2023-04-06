@@ -131,7 +131,7 @@ authRouter.post('/avail',async (req,res)=>{
         }
         else{
             let {doctor_id,_date,slot,_status}=req.body;
-            connection.query("insert into availability (doctor_id,_date,slot,_status) values (?,?,?,?)",[doctor_id,_date,slot,_status],(err,result)=>{
+            connection.query("insert into avail (doctor_id,_date,slot,_status) values (?,?,?,?)",[doctor_id,_date,slot,_status],(err,result)=>{
                 if(err){
                     res.json({
                         error:err.message,
