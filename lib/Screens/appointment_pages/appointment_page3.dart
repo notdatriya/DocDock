@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../CustomUI/reusable_widgets.dart';
@@ -15,24 +17,28 @@ class AppointmentPage3 extends StatefulWidget {
 }
 
 class _AppointmentPage3State extends State<AppointmentPage3> {
-  //change
+  // getting data from server
+
   List slotlist = [];
   void getSlotData(picked) async {
     var url = Uri.parse('https://docdock.onrender.com/getavail');
-    var response = await http.post(url, body: {
-      "doctor_id": widget.currDocId.toString(),
-      "_date": picked.toString()
+    var requestBody = jsonEncode({
+      "doctor_id": widget.currDocId,
+      "_date": DateFormat('yyyy-MM-dd').format(picked)
     });
+    var response = await http.post(url,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: '*'
+        },
+        body: requestBody);
 
     print(response.statusCode);
     setState(() {
-      List<dynamic> responseList = jsonDecode(response.toString());
-      for (var item in responseList) {
-        print(item['slot']);
-      }
+      List<dynamic> responseList = jsonDecode((response.body).toString());
+      print(responseList);
     });
   }
-  // till here
 
   DateTime _selectedDate = DateTime.now();
 
@@ -44,8 +50,6 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       lastDate: DateTime.now().add(Duration(days: 7)),
     );
     if (picked != null && picked != _selectedDate) {
-      //change
-      // till here
       setState(() {
         _selectedDate = picked;
         getSlotData(picked);
@@ -77,8 +81,6 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   // }
   @override
   Widget build(BuildContext context) {
-    print('hello');
-    print(widget.currDocId);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
