@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../CustomUI/reusable_widgets.dart';
+import '../root_page.dart';
 
 class AppointmentPage4 extends StatefulWidget {
   const AppointmentPage4({Key? key,required this.currDocId,required this.selectedDate}) : super(key: key);
@@ -162,9 +163,10 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),),
                       btnOkOnPress: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RootPage()
+                            ));
                       },
                     )..show();
                   },
