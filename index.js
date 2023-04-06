@@ -4,6 +4,8 @@ const port=3000;
 const path=require('path');
 const cors=require('cors');
 app.use(express.json());
+var connection  = require('express-myconnection');
+var mysql = require('mysql');
 
 app.use(cors({
     origin:'*'
@@ -48,6 +50,7 @@ app.get('/hello',(req,res)=>{
 
 const authRouter=require('./routes/authRouter');
 const userRouter=require('./routes/userRouter');
+
 
 app.use('/',authRouter);
 app.use('/appointment',userRouter);
