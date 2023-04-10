@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doc_dock/CustomUI/slot_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../CustomUI/reusable_widgets.dart';
@@ -11,8 +12,9 @@ import 'dart:convert';
 import '../../models/Slot.dart';
 
 class AppointmentPage3 extends StatefulWidget {
-  const AppointmentPage3({Key? key, required this.currDocId}) : super(key: key);
+  const AppointmentPage3({Key? key, required this.currDocId,required this.ogDocId}) : super(key: key);
   final int currDocId;
+  final int ogDocId;
   @override
   State<AppointmentPage3> createState() => _AppointmentPage3State();
 }
@@ -24,7 +26,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   void getSlotData(picked) async {
     var url = Uri.parse('https://docdock.onrender.com/getavail');
     var requestBody = jsonEncode({
-      "doctor_id": widget.currDocId,
+      "doctor_id": widget.ogDocId,
       "_date": DateFormat('yyyy-MM-dd').format(picked)
     });
     var response = await http.post(url,
@@ -40,6 +42,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       List<dynamic> responseList = (json
           .decode((response.body).toString())
           .map((data) => Slot.fromJson(data))).toList();
+      Slot.slotList=responseList.cast<Slot>();
       print(responseList);
     });
   }
@@ -83,6 +86,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   //   }
   //   );
   // }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -163,13 +167,13 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
               // ),
               height: 50.0,
               padding:
-                  const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
-              margin: const EdgeInsets.only(bottom: 10, top: 10),
+                  const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 0),
+              margin: const EdgeInsets.only(bottom:0, top: 10),
               width: width * .9,
               child: Row(
                 children: [
                   Text(
-                    "Pick time (6 slots available)",
+                    "Pick time (${Slot.slotList.length} slots available)",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -177,8 +181,24 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: height*.4,
+              width: width*.9,
+              child: ListView.builder(
+                  itemCount:Slot.slotList.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder:(BuildContext context, int index)
+                  {
+                    return SlotList(index: index, slotList: Slot.slotList);
+                  }
+              ),
             )
+
           ]),
+
           Positioned(
             bottom: height * .92,
             left: width * .07,
@@ -221,6 +241,10 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                     onPressed: () {
                       setState(() {
                         //currentIndex+=1;
+                        // Navigator.push(
+                        // context,
+                        // MaterialPageRoute(builder: (context) => AppointmentPage2()
+                        // ));
                         Navigator.pop(context);
                       });
                     },
@@ -234,6 +258,8 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
       ),
     );
   }
+
+
 
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];

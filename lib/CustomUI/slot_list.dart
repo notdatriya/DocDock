@@ -13,14 +13,13 @@ class SlotList extends StatelessWidget {
     final width=MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
-        //slotList[index].isSelected?Color(0xff6FBDB4):
+        color: slotList[index].isSelected?Color(0xff6FBDB4):Color(0xff2A2C28),
         borderRadius: BorderRadius.circular(10),
       ),
       height: 80.0,
       padding: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
       margin: const EdgeInsets.only(bottom: 10, top: 10),
-      width: 300,
+      //width: width*.9,
       child: Column(
         children: [
           Row(
@@ -39,24 +38,30 @@ class SlotList extends StatelessWidget {
                   //   ),
                   // ),
                   Positioned(
-                    top: 20,
+                   // top: 20,
                     bottom: 0,
                     left: 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 10,
+                    child: Expanded(
+                      // height: 800,
+                      // width: 300,
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              slotList[index].slot_text,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          slotList[index].slot_text,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
