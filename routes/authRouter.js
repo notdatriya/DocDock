@@ -189,7 +189,7 @@ authRouter.post('/book',async (req,res)=>{
             })
         }
         else{
-            let {doctor_id,_date,slot,remarks}=req.body;
+            let {doctor_id,patient_id,_date,slot,remarks}=req.body;
             connection.query("update avail set _status=? where doctor_id=? and _date=? and slot=?",[false,doctor_id,_date,slot],(err,result)=>{
                 if(err){
                     res.json({
@@ -197,7 +197,7 @@ authRouter.post('/book',async (req,res)=>{
                     })
                 }
                 else{
-                    connection.query("insert into appointment (doctor_id,patient_id,_date,slot,remarks) values(?,?,?,?,?)",[doctor_id,"1",_date,slot,remarks],(err,result)=>{
+                    connection.query("insert into appointment (doctor_id,patient_id,_date,slot,remarks) values(?,?,?,?,?)",[doctor_id,patient_id,_date,slot,remarks],(err,result)=>{
                         if(err){
                             res.json({
                                 error:err.message
