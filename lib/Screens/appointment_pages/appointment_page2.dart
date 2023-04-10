@@ -54,6 +54,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    print(width);
     return Scaffold(
         backgroundColor: Color(0xff151413),
         body: Stack(

@@ -148,9 +148,10 @@ class DoctorList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => AppointmentPage3(
-                                currDocId: docList[index].doctorId,
-
+                                currDocId: index,
+                                ogDocId: docList[index].doctorId,
                               )));
+                  print("og doc id");
                   print(docList[index].doctorId);
                 },
                 style: ButtonStyle(

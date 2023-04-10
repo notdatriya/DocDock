@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../CustomUI/reusable_widgets.dart';
+import '../../CustomUI/slot_list.dart';
 import '../../models/Doctor.dart';
+import '../../models/Slot.dart';
 import 'appointment_page4.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AppointmentPage3 extends StatefulWidget {
-  const AppointmentPage3({Key? key, required this.currDocId}) : super(key: key);
+  const AppointmentPage3({Key? key, required this.currDocId,required this.ogDocId}) : super(key: key);
   final int currDocId;
+  final int ogDocId;
   @override
   State<AppointmentPage3> createState() => _AppointmentPage3State();
 }
@@ -19,11 +22,14 @@ class AppointmentPage3 extends StatefulWidget {
 class _AppointmentPage3State extends State<AppointmentPage3> {
   // getting data from server
 
-  List slotlist = [];
+  List<dynamic> responseList = [];
+
   void getSlotData(picked) async {
+    // print("ggyg");
+    // print(widget.ogDocId);
     var url = Uri.parse('https://docdock.onrender.com/getavail');
     var requestBody = jsonEncode({
-      "doctor_id": widget.currDocId,
+      "doctor_id": widget.ogDocId,
       "_date": DateFormat('yyyy-MM-dd').format(picked)
     });
     var response = await http.post(url,
@@ -35,7 +41,9 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
 
     print(response.statusCode);
     setState(() {
-      List<dynamic> responseList = jsonDecode((response.body).toString());
+       responseList = jsonDecode((response.body).toString());
+      // slotlist=responseList;
+      Slot.slotList = responseList.cast<Slot>();
       print(responseList);
     });
   }
@@ -83,6 +91,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    // print(widget.currDocId);
     return Scaffold(
       backgroundColor: Color(0xff151413),
       body: Stack(
@@ -111,9 +120,9 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
               height: 15,
             ),
 
-            // - 1 bcs of index error (auto inc starts from 1 in mysql but in list (flutter) it starts from 0)
+            // doclist me currdocid assign kiya hai jo ki list ka index hai, wahi currdocid yaha pe use kar rahe hai neeche
 
-            DocTile(0, height, width, Doctor.docList),
+            DocTile(widget.currDocId, height, width, Doctor.docList),
             Container(
               decoration: BoxDecoration(
                 color: Color(0xff2A2C28),
@@ -173,7 +182,19 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                   ),
                 ],
               ),
-            )
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: height * .4,
+              child: ListView.builder(
+                  itemCount: responseList.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return SlotList(
+                        index: index, slotList: Slot.slotList);
+                  }),
+            ),
           ]),
           Positioned(
             bottom: height * .92,
