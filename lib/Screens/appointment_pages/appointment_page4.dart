@@ -1,24 +1,57 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:doc_dock/models/Doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../CustomUI/reusable_widgets.dart';
 import '../root_page.dart';
 
 class AppointmentPage4 extends StatefulWidget {
-  const AppointmentPage4({Key? key,required this.currDocId,required this.selectedDate}) : super(key: key);
-  final int currDocId;
+  const AppointmentPage4({Key? key,required this.selectedDate,required this.selectedSlot,required this.ogDocId}) : super(key: key);
+  final int ogDocId;
   final DateTime selectedDate;
+  final String selectedSlot;
   @override
   State<AppointmentPage4> createState() => _AppointmentPage4State();
 }
 
 class _AppointmentPage4State extends State<AppointmentPage4> {
+
+
+  TextEditingController _notesController = new TextEditingController();
+
+  void book(date,slot,remark) async {
+    var url = Uri.parse('https://docdock.onrender.com/book');
+    var requestBody = jsonEncode({
+      "doctor_id": widget.ogDocId,
+      "patient_id": 1,
+      "_date": DateFormat('yyyy-MM-dd').format(date),
+      "slot": slot.toString(),
+      "remarks": remark.toString(),
+    });
+    var response = await http.post(url,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: '*'
+        },
+        body: requestBody);
+
+    print(response.statusCode);
+  }
   @override
   Widget build(BuildContext context) {
-    TextEditingController _notesController=new TextEditingController();
+
+
+    String saveText() {
+      String text = _notesController.text;
+      print(text);
+      return text;// Do something with the text here
+    }
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
@@ -38,7 +71,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                 ),)
               ],),
             SizedBox(height: 15,),
-            DocTile(widget.currDocId-1,height,width,Doctor.docList),
+            DocTile(0,height,width,Doctor.docList),
             SizedBox(height: 15,),
             Row(crossAxisAlignment:CrossAxisAlignment.start,
               children: [
@@ -76,6 +109,8 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                       DateFormat('EEEE, d\'${_getOrdinalSuffix(widget.selectedDate.day)}\' MMMM').format(widget.selectedDate),
                       style: TextStyle(fontSize: 17),
                     ),
+                  SizedBox(width: 10,),
+                  Text('( '+widget.selectedSlot+' )',style: TextStyle(fontSize: 17),)
                 ],
               ),
             ),
@@ -100,13 +135,16 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Enter text here',
+                    hintText: 'Enter some msg for the doc . . .',
                     hintStyle: TextStyle(color: Colors.white70),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(16),
+
                   ),
                   controller: _notesController,
+                  maxLength: 100,
                   style: TextStyle(color: Colors.white),
+                    onChanged: (value){}
                 ),
               ),
             ),
@@ -142,7 +180,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                     }
                     );
                   },
-                  child: Icon(Icons.arrow_back,color: Colors.black ,),
+                  child: Icon(Icons.arrow_back,color: Colors.black,),
                   backgroundColor:Color(0xff6FBDB4)
               ),
             )
@@ -171,18 +209,25 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
                             ));
                       },
                     )..show();
+                    // saveText();
+                    setState(() {
+                      String text=saveText();
+                      book(widget.selectedDate,widget.selectedSlot,text);
+                    });
                   },
-                  child: Text('Confirm Appointment',style:TextStyle(color:Colors.white,fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text('Confirm Appointment',style:TextStyle(color:Color(0xff151413),fontSize: 20, fontWeight: FontWeight.w500)),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Colors.black87:Colors.green),
+                    backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed)?Color(0xff2A2C28):Color(0xff6FBDB4)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
-                  ),
+                  )
+                  ,
                 ),
               )
           ),
     ]
       )
     );
+  }
   }
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
@@ -204,7 +249,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
     }
     return indicators;
   }
-}
+
 
 @override
 Widget build(BuildContext context) {
@@ -259,3 +304,4 @@ String _getOrdinalSuffix(int day) {
       return 'th';
   }
 }
+

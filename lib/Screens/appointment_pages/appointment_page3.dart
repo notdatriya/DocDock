@@ -43,7 +43,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
           .decode((response.body).toString())
           .map((data) => Slot.fromJson(data))).toList();
       Slot.slotList=responseList.cast<Slot>();
-      print(responseList);
+      // print(responseList);
     });
   }
 
@@ -91,6 +91,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Color(0xff151413),
       body: Stack(
@@ -160,6 +161,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                 ],
               ),
             ),
+            SizedBox(height: 5,),
             Container(
               // decoration: BoxDecoration(
               //   color: Color(0xff2A2C28),
@@ -192,7 +194,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
                   physics: const BouncingScrollPhysics(),
                   itemBuilder:(BuildContext context, int index)
                   {
-                    return SlotList(index: index, slotList: Slot.slotList);
+                    return SlotList(index: index, slotList: Slot.slotList,selectedDate:_selectedDate,ogDocId: widget.ogDocId,);
                   }
               ),
             )
@@ -206,31 +208,7 @@ class _AppointmentPage3State extends State<AppointmentPage3> {
               children: _buildIndicator(),
             ),
           ),
-          Positioned(
-              top: height * .88,
-              right: width * .05,
-              child: SizedBox(
-                height: 60,
-                width: 60,
-                child: FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        //currentIndex+=1;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AppointmentPage4(
-                                      currDocId: widget.currDocId,
-                                      selectedDate: _selectedDate,
-                                    )));
-                      });
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ),
-                    backgroundColor: Color(0xff6FBDB4)),
-              )),
+
           Positioned(
               top: height * .88,
               left: width * .05,
