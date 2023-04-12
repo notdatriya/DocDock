@@ -217,6 +217,32 @@ authRouter.post('/book',async (req,res)=>{
     })
 })
 
+authRouter.get('/app/:id',async(req,res)=>{
+    dbconnection.getConnection((err,connection)=>{
+        if(err){
+            res.json({
+                error:err.message
+            })
+        }
+
+        else{
+            let patient_id=req.params.id;
+            connection.query("select appointment._date,appointment.slot, doctor.FirstName,doctor.LastName,doctor.Specialization from appointment join doctor on appointment.doctor_id=doctor.doctor_id where appointment.patient_id=?",[patient_id],(err,result)=>{
+                if(err){
+                    res.json({
+                        error:err.message
+                    }
+                    )
+                }
+                else{
+                    res.json(result)
+                }
+            })
+        }
+        connection.release();
+    })
+})
+
 
 
 
