@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
           left: width * .025,
           width: width * .95,
           height: height * .13,
-          child: AppointmentCard("Appointment at 9", "\nDr. Phophalia\nIIITV "),
+          child: AppointmentCard("Appointment at 9 pm", "\nDr. Riya \n Ajayan Hospital "),
           // child: ListView.builder(
           //     padding: const EdgeInsets.all(8),
           //     itemCount: 4,//change dynamically later
