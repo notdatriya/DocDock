@@ -4,8 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:convert';
-import 'Appointment.dart';
-import 'appointment_tab.dart';
+import '../models/Appointment.dart';
+import '../models/Appointment.dart';
+import '../CustomUI/appointment_tab.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -226,8 +227,9 @@ class _DashboardState extends State<Dashboard> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           height: height * .4,
-                          width: width * .9,
+                          width: width * .55,
                           child: ListView.builder(
+
                               itemCount: Appointment.appList.length,
                               scrollDirection: Axis.vertical,
                               physics: const BouncingScrollPhysics(),
@@ -238,14 +240,6 @@ class _DashboardState extends State<Dashboard> {
                                 );
                               }),
                         )
-                        //hardcoded for testing
-                        // AppointmentTab(
-                        //   slot: "3:30 pm to 4:30 PM",
-                        //   fname: "Sanidhya",
-                        //   lname: "Kumar",
-                        //   gender: "Male",
-                        //   age: 19,
-                        // ),
                       ],
                     )
                 ),
