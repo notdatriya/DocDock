@@ -174,19 +174,19 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: [
                 Text('My Appointments',
-                    style: TextStyle(color: Colors.white70, fontSize: 22))
+                    style: TextStyle(color: Colors.white70, fontSize: 22,))
               ],
             )),
         Positioned(
             top: height * .51,
             left: width * .025,
             width: width * .95,
-            height: height * .13,
+            height: height * .4,
             // child: AppointmentCard(
             //     "Appointment at 9 pm", "\nDr. Riya \n Ajayan Hospital "),
             child: ListView.builder(
                 padding: const EdgeInsets.all(8),
-                itemCount: 4, //change dynamically later
+                itemCount: Appointment.appList.length, //change dynamically later
                 itemBuilder: (BuildContext context, int index) {
                   return AppointmentList(
                     index: index,

@@ -19,7 +19,7 @@ class AppointmentList extends StatelessWidget {
         color: Color(0xff2A2C28),
         borderRadius: BorderRadius.circular(10),
       ),
-      height: 180.0,
+      height: 100.0,
       padding: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
       margin: const EdgeInsets.only(bottom: 10, top: 10),
       width: width,
@@ -41,52 +41,65 @@ class AppointmentList extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 20,
+                    top: 10,
                     bottom: 0,
-                    left: 80,
+                    left: 10,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 10,
+                          height: 12,
                         ),
                         Text(
                           "Appointment from " + appList[index].slot,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.white70,
                           ),
                         ),
-                        Text(
-                          "Appointment from " + appList[index].date.toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white70,
-                          ),
+                        SizedBox(
+                          height: 8,
                         ),
+                        // Text(
+                        //   '23rd April',
+                        //   // appList[index].date.toString(),
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w500,
+                        //     fontSize: 18,
+                        //     color: Colors.white70,
+                        //   ),
+                        // ),
                         Row(
                           children: [
                             Text(
-                              "Dr. " +
+                              '23rd April',
+                              // appList[index].date.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              "  |  Dr. " +
                                   appList[index].fname +
                                   " " +
                                   appList[index].lname,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
                                 fontSize: 18,
                                 color: Colors.white70,
                               ),
                             ),
-                            Text(
-                              appList[index].speciality,
-                              style: TextStyle(
-                                //fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white70,
-                              ),
-                            ),
+                            // Text(
+                            //   appList[index].speciality,
+                            //   style: TextStyle(
+                            //     //fontWeight: FontWeight.bold,
+                            //     fontSize: 18,
+                            //     color: Colors.white70,
+                            //   ),
+                            // ),
                             SizedBox(
                               width: 10,
                             ),
