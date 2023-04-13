@@ -7,28 +7,27 @@ class Appointment {
   final int appId;
   final String fname;
   final String lname;
-  final DateTime date;
+  final String date;
   final String speciality;
   final String slot;
 
-  Appointment({
-    this.appId = 0,
-    this.fname = "",
-    this.lname="",
-    this.date= const ConstDateTime(0),
-    this.speciality = "",
-    this.slot=""
-
-  });
+  Appointment(
+      {this.appId = 0,
+      this.fname = "",
+      this.lname = "",
+      // this.date = const ConstDateTime(0),
+      this.date = "",
+      this.speciality = "",
+      this.slot = ""});
 
   factory Appointment.fromJson(Map<String, dynamic> json) {
     return Appointment(
-      // doctorId: json['doctor_id'],
-      // speciality: json['Specialization'],
-      // name: json['FirstName'],
-      // experience: json['Years_of_experience'],
-      // degree: json['Degree'],
-      // imageURL: json['imageURL'],
+      // appId: json['doctor_id'],
+      speciality: json['Specialization'],
+      fname: json['FirstName'],
+      lname: json['LastName'],
+      date: json['_date'],
+      slot: json['slot'],
     );
   }
 }

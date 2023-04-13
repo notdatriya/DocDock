@@ -1,15 +1,15 @@
-
 import 'package:doc_dock/CustomUI/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Appointment.dart';
 
 class AppointmentList extends StatelessWidget {
-  const AppointmentList({Key? key,required this.index,required this.appList}) : super(key: key);
+  const AppointmentList({Key? key, required this.index, required this.appList})
+      : super(key: key);
 
   final int index;
   final List<Appointment> appList;
-  
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -40,7 +40,6 @@ class AppointmentList extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                   ),
-
                   Positioned(
                     top: 20,
                     bottom: 0,
@@ -52,24 +51,28 @@ class AppointmentList extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          "Appointment from "+appList[index].slot,
+                          "Appointment from " + appList[index].slot,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: Colors.white70,),
+                            color: Colors.white70,
+                          ),
                         ),
                         Text(
-                          "Appointment from "+appList[index].date.toString(),
+                          "Appointment from " + appList[index].date.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: Colors.white70,),
+                            color: Colors.white70,
+                          ),
                         ),
-
                         Row(
                           children: [
                             Text(
-                              "Dr. "+appList[index].fname+" "+appList[index].lname,
+                              "Dr. " +
+                                  appList[index].fname +
+                                  " " +
+                                  appList[index].lname,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,

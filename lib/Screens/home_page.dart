@@ -1,7 +1,11 @@
 import 'package:doc_dock/Screens/profile_page.dart';
+import 'package:doc_dock/models/Appointment.dart';
 import 'package:flutter/material.dart';
 
+import '../CustomUI/app_list.dart';
 import '../CustomUI/reusable_widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,6 +15,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List applisti = [];
+  void getAppData() async {
+    var url = Uri.parse('https://docdock.onrender.com/app/1');
+    var response = await http.get(url);
+    print(response.statusCode);
+
+    // decoding the response
+    print((jsonDecode(response.body)).toString());
+    setState(() {
+      // List<dynamic> responseList = jsonDecode((response.body).toString());
+      List<dynamic> appListi = (json
+          .decode((response.body).toString())
+          .map((data) => Appointment.fromJson(data))).toList();
+      Appointment.appList = appListi.cast<Appointment>();
+      // print(responseList);
+    });
+  }
+
+  @override
+  void initState() {
+    print("appdata here");
+    getAppData();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -150,19 +178,21 @@ class _HomePageState extends State<HomePage> {
               ],
             )),
         Positioned(
-          top: height * .51,
-          left: width * .025,
-          width: width * .95,
-          height: height * .13,
-          child: AppointmentCard("Appointment at 9 pm", "\nDr. Riya \n Ajayan Hospital "),
-          // child: ListView.builder(
-          //     padding: const EdgeInsets.all(8),
-          //     itemCount: 4,//change dynamically later
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return AppointmentCard("Appointment at 9","Dr. Phophu","IIITV Mental asylum");
-          //     }
-          // )
-        ),
+            top: height * .51,
+            left: width * .025,
+            width: width * .95,
+            height: height * .13,
+            // child: AppointmentCard(
+            //     "Appointment at 9 pm", "\nDr. Riya \n Ajayan Hospital "),
+            child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: 4, //change dynamically later
+                itemBuilder: (BuildContext context, int index) {
+                  return AppointmentList(
+                    index: index,
+                    appList: Appointment.appList,
+                  );
+                })),
       ],
     ));
   }
