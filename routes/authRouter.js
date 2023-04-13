@@ -227,7 +227,7 @@ authRouter.get('/app/:id',async(req,res)=>{
 
         else{
             let patient_id=req.params.id;
-            connection.query("select appointment._date,appointment.slot, doctor.FirstName,doctor.LastName,doctor.Specialization from appointment join doctor on appointment.doctor_id=doctor.doctor_id where appointment.patient_id=?",[patient_id],(err,result)=>{
+            connection.query(`select DATE_FORMAT(appointment._date,'%M %d') AS _date,appointment.slot, doctor.FirstName,doctor.LastName,doctor.Specialization from appointment join doctor on appointment.doctor_id=doctor.doctor_id where appointment.patient_id=?`,[patient_id],(err,result)=>{
                 if(err){
                     res.json({
                         error:err.message
@@ -235,6 +235,9 @@ authRouter.get('/app/:id',async(req,res)=>{
                     )
                 }
                 else{
+
+                    // JSON.stringify(result);
+                    console.log(result);
                     res.json(result)
                 }
             })
