@@ -1,4 +1,5 @@
 
+import 'package:doc_web_app/CustomUI/documents_tab.dart';
 import 'package:flutter/material.dart';
 
 class VitalsPage extends StatefulWidget {
@@ -11,8 +12,17 @@ class VitalsPage extends StatefulWidget {
 class _VitalsPageState extends State<VitalsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('Vitals Page')),
+    return ListView(
+      children:<Widget>[
+        DocumentTab(label: "Age"),
+        DocumentTab(label: "Height"),
+        DocumentTab(label: "Weight"),
+        DocumentTab(label: "BMI"),
+        DocumentTab(label: "Blood Group"),
+        DocumentTab(label: "Haemoglobin Count"),
+        DocumentTab(label: "Sugar Level"),
+
+      ]
     );
   }
 }

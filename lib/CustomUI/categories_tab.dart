@@ -22,7 +22,7 @@ class CategoryTab extends StatelessWidget {
         child: Center(child: Text(
           text,
           // '3:30 to 4:30 PM',//slot
-          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black54),
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Color(0xff151413),),
         )),//hardcoded for now
       ),
     );

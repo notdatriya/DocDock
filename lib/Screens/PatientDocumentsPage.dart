@@ -139,17 +139,14 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                       ),)
                 ),
 
-                //welcome and greeting card
-
-
-                Positioned(
+                 Positioned(
                     left: width * .376,
                     top: height* .08,
                     child: SingleChildScrollView(
                       child: Container(
                         height: height*.9,
                         width: width*.6,
-                        color: Colors.red,
+                        color: Colors.transparent,
                         child: IndexedStack(
                             index: _categoryIndex,
                             children: pages(),
@@ -161,7 +158,6 @@ class _PatientDocumentsState extends State<PatientDocuments> {
               ],
             ),
           ),
-
         ],
       ),
     );
