@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'Screens/Dashboard.dart';
+import 'Screens/PatientDocumentsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          fontFamily: "Lexend_Deca",
+          primarySwatch: Colors.blue,
+          brightness: Brightness.dark
       ),
       home: Dashboard(),
       debugShowCheckedModeBanner: false,

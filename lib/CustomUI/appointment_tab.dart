@@ -1,5 +1,5 @@
 
-import 'package:doc_web_app/Screens/PatientDocuments.dart';
+import 'package:doc_web_app/Screens/PatientDocumentsPage.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Appointment.dart';
@@ -23,7 +23,8 @@ class AppointmentTab extends StatelessWidget {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: (){Navigator.push(
+      onTap: (){
+        Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => PatientDocuments()));},

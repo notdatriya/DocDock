@@ -1,4 +1,11 @@
 
+import 'package:doc_web_app/CustomUI/categories_tab.dart';
+import 'package:doc_web_app/Screens/Documents/ConsultationReportsPage.dart';
+import 'package:doc_web_app/Screens/Documents/LabResultsPage.dart';
+import 'package:doc_web_app/Screens/Documents/MedicalHistoryPage.dart';
+import 'package:doc_web_app/Screens/Documents/ScansPage.dart';
+import 'package:doc_web_app/Screens/Documents/VaccinesPage.dart';
+import 'package:doc_web_app/Screens/Documents/VitalsPage.dart';
 import 'package:flutter/material.dart';
 
 class PatientDocuments extends StatefulWidget {
@@ -7,6 +14,25 @@ class PatientDocuments extends StatefulWidget {
   @override
   State<PatientDocuments> createState() => _PatientDocumentsState();
 }
+int _categoryIndex = 0;
+List<Widget> pages() {
+  return [
+    ScansPage(),
+    LabResultsPage(),
+    VitalsPage(),
+    VaccinesPage(),
+    ConsultationReportsPage(),
+    MedicalHistoryPage(),
+  ];
+}
+List<String> categoryList = [
+  "Diagonistic Imaging",
+  "Lab Results",
+  "Vitals",
+  "Immunization Reports",
+  "Consultation Reports",
+  "Medical History"
+];
 
 class _PatientDocumentsState extends State<PatientDocuments> {
   @override
@@ -31,7 +57,31 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                       color: Color(0xff2A2C28),
                     )
                 ),
-                //black card
+                //Category Tabs
+                Positioned(
+                  left:width*.037,
+                  top:height*.22,
+                    child: Container(
+                        height: height*.7,
+                        width: width*.27,
+                        child:
+                        ListView.builder(
+                          itemCount: categoryList.length,
+                            itemBuilder:
+                                (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    _categoryIndex=index;
+                                  });
+                                },
+                                  child: CategoryTab(text: categoryList[index])
+                              );
+                            }
+                        )
+                    )
+                ),
+                //different pages
                 Positioned(
                     left: width * .35,
                     child: Container(
@@ -92,28 +142,17 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                 ),
 
                 Positioned(
-                    left: width * .4,
+                    left: width * .43,
                     top: height* .12,
-                    child: Column(
-                      children: [
-                        // Container(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 12),
-                        //   height: height * .4,
-                        //   width: width * .55,
-                        //   child: ListView.builder(
-                        //
-                        //       itemCount: Appointment.appList.length,
-                        //       scrollDirection: Axis.vertical,
-                        //       physics: const BouncingScrollPhysics(),
-                        //       itemBuilder: (BuildContext context, int index) {
-                        //         return AppointmentTab(
-                        //           index: index,
-                        //           appList: Appointment.appList,
-                        //         );
-                        //       }),
-                        // )
-                      ],
-                    )
+                    child: Container(
+                      height: height*.8,
+                      width: width*.5,
+                      color: Colors.transparent,
+                      child: IndexedStack(
+                          index: _categoryIndex,
+                          children: pages(),
+                      ),
+                    ),
                 ),
 
               ],
