@@ -17,20 +17,20 @@ class PatientDocuments extends StatefulWidget {
 int _categoryIndex = 0;
 List<Widget> pages() {
   return [
-    ScansPage(),
-    LabResultsPage(),
     VitalsPage(),
-    VaccinesPage(),
+    LabResultsPage(),
+    ScansPage(),
     ConsultationReportsPage(),
+    VaccinesPage(),
     MedicalHistoryPage(),
   ];
 }
 List<String> categoryList = [
-  "Diagonistic Imaging",
-  "Lab Results",
   "Vitals",
-  "Immunization Reports",
+  "Lab Results",
+  "Diagonistic Imaging",
   "Consultation Reports",
+  "Immunization Reports",
   "Medical History"
 ];
 
