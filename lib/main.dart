@@ -1,3 +1,4 @@
+import 'package:doc_dock/Screens/LoginPage.dart';
 import 'package:doc_dock/Screens/home_page.dart';
 import 'package:doc_dock/Screens/root_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           brightness: Brightness.dark
       ),
-      home: RootPage(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }

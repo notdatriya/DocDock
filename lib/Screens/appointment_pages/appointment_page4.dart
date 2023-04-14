@@ -55,6 +55,7 @@ class _AppointmentPage4State extends State<AppointmentPage4> {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xff151413),
       body:Stack(
         children:[

@@ -73,8 +73,8 @@ class AppointmentList extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '23rd April',
-                              // appList[index].date.toString(),
+                             // '23rd April',
+                               appList[index].date.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
