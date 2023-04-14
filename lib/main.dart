@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'Screens/Dashboard.dart';
@@ -19,11 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: "Lexend_Deca",
           primarySwatch: Colors.blue,
-          brightness: Brightness.dark
-      ),
-      home: PatientDocuments(),
+          brightness: Brightness.dark),
+      home: Dashboard(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
