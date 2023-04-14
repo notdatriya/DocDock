@@ -47,6 +47,7 @@ class _PatientDocumentsState extends State<PatientDocuments> {
             height: height,
             width: width,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 //grey card
                 Positioned(
@@ -55,6 +56,26 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                       width: width,
                       height: height,
                       color: Color(0xff2A2C28),
+                    )
+                ),
+                Positioned(
+                    top: height * .15,
+                    left: width * .048,
+                    child: Container(
+                      width: 300,
+                      height: 200,
+                      color: Colors.transparent,
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Here are some categories of documents: ',
+                                  style: TextStyle(
+                                    color: Colors.white38,
+                                    fontSize: 16,
+                                  )))
+                        ],
+                      ),
                     )
                 ),
                 //Category Tabs
@@ -67,8 +88,7 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                         child:
                         ListView.builder(
                           itemCount: categoryList.length,
-                            itemBuilder:
-                                (BuildContext context, int index) {
+                            itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: (){
                                   setState(() {
@@ -120,37 +140,20 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                 ),
 
                 //welcome and greeting card
-                Positioned(
-                    top: height * .15,
-                    left: width * .048,
-                    child: Container(
-                      width: 300,
-                      height: 200,
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text('Here are some categories of documents: ',
-                                  style: TextStyle(
-                                    color: Colors.white38,
-                                    fontSize: 16,
-                                  )))
-                        ],
-                      ),
-                    )
-                ),
+
 
                 Positioned(
-                    left: width * .43,
-                    top: height* .12,
-                    child: Container(
-                      height: height*.8,
-                      width: width*.5,
-                      color: Colors.transparent,
-                      child: IndexedStack(
-                          index: _categoryIndex,
-                          children: pages(),
+                    left: width * .376,
+                    top: height* .08,
+                    child: SingleChildScrollView(
+                      child: Container(
+                        height: height*.9,
+                        width: width*.6,
+                        color: Colors.red,
+                        child: IndexedStack(
+                            index: _categoryIndex,
+                            children: pages(),
+                        ),
                       ),
                     ),
                 ),
