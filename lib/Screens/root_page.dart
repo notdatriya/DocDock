@@ -1,4 +1,3 @@
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -47,30 +46,32 @@ class _RootPageState extends State<RootPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Color(0xff2A2C28),
-            body: IndexedStack(
-        index: _bottomNavIndex,
-        children: _widgetOptions(),
-      ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Color(0xff2A2C28),
+        body: IndexedStack(
+          index: _bottomNavIndex,
+          children: _widgetOptions(),
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          // backgroundColor: Colors.transparent,
+          color: Color(0xff2A2C28),
+          buttonBackgroundColor: Color(0xff6FBDB4),
+          items: iconList,
+          index: _bottomNavIndex,
+          backgroundColor: Color(0xff151413),
+          // backgroundColor: AppColors.bgcolor40percent,
+          // buttonBackgroundColor: Colors.transparent,
 
-      bottomNavigationBar: CurvedNavigationBar(
-        // backgroundColor: Colors.transparent,
-        color: Color(0xff2A2C28),
-        buttonBackgroundColor: Color(0xff6FBDB4),
-        items: iconList,
-        index: _bottomNavIndex,
-        backgroundColor: Color(0xff151413),
-        // backgroundColor: AppColors.bgcolor40percent,
-        // buttonBackgroundColor: Colors.transparent,
-
-        height: 60,
-        onTap: (index) {
-          setState(() {
-            _bottomNavIndex = index;
-          });
-        },
+          height: 60,
+          onTap: (index) {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          },
+        ),
       ),
     );
   }

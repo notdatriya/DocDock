@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "5657053978",
+    "project_id": "docdock23",
+    "storage_bucket": "docdock23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5657053978:android:0402d5bcd34a236583baa3",
+        "android_client_info": {
+          "package_name": "com.example.doc_dock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5657053978-br8nfhl2haqblt0vetjbi8e961tio925.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9UWd2ZsfgZMSoCN_ujb4QfD9Ul9FoUVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5657053978-br8nfhl2haqblt0vetjbi8e961tio925.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
