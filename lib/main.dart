@@ -3,8 +3,11 @@ import 'package:doc_dock/Screens/home_page.dart';
 import 'package:doc_dock/Screens/root_page.dart';
 import 'package:flutter/material.dart';
 import 'Screens/test.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,8 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: "Lexend_Deca",
           primarySwatch: Colors.blue,
-          brightness: Brightness.dark
-      ),
+          brightness: Brightness.dark),
       home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
