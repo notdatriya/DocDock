@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 
 import '../models/Doctor.dart';
 
-Card AppointmentCard(String title, String subtitle) {
-  return Card(
-    shape: RoundedRectangleBorder(
-      side: BorderSide(
-        width: 2,
-      ),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: ListTile(
-      shape: RoundedRectangleBorder(
-        //side: BorderSide(width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      tileColor: Color(0xff2A2C28),
-      leading: FlutterLogo(size: 72.0),
-      title: Text(
-        title,
-        style: TextStyle(
-            color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w300),
-      ),
-      subtitle:
-          Text(subtitle, style: TextStyle(color: Colors.white70, fontSize: 12)),
-      // trailing: Text(trailing),
-      isThreeLine: true,
-    ),
-  );
-}
+// Card AppointmentCard(String title, String subtitle) {
+//   return Card(
+//     shape: RoundedRectangleBorder(
+//       side: BorderSide(
+//         width: 2,
+//       ),
+//       borderRadius: BorderRadius.circular(20),
+//     ),
+//     child: ListTile(
+//       shape: RoundedRectangleBorder(
+//         //side: BorderSide(width: 2),
+//         borderRadius: BorderRadius.circular(20),
+//       ),
+//       tileColor: Color(0xff2A2C28),
+//       leading: FlutterLogo(size: 72.0),
+//       title: Text(
+//         title,
+//         style: TextStyle(
+//             color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w300),
+//       ),
+//       subtitle:
+//           Text(subtitle, style: TextStyle(color: Colors.white70, fontSize: 12)),
+//       // trailing: Text(trailing),
+//       isThreeLine: true,
+//     ),
+//   );
+// }
 
 Container DocTile(
     int index, double height, double width, List<Doctor> docList) {
@@ -117,3 +117,19 @@ ListTile SpecialityTile(String text, Image image, bool isSelected) {
         style: TextStyle(color: isSelected ? Colors.black : Colors.white70)),
   );
 }
+
+Padding CategoryTab(String text){
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Color(0xff2A2C28),
+        ),
+        height: 50,
+        width:300,
+        child: Center(child: Text(text)),
+    ),
+  );
+}
+
