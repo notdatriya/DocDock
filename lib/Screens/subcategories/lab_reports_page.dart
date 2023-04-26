@@ -1,5 +1,13 @@
 
+import 'dart:io';
+import 'package:path/path.dart' as Path;
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+
+import '../../CustomUI/file_upload_widget.dart';
+import '../../api/firebase_api.dart';
+
 
 class LabReports extends StatefulWidget {
   const LabReports({Key? key}) : super(key: key);
@@ -9,8 +17,78 @@ class LabReports extends StatefulWidget {
 }
 
 class _LabReportsState extends State<LabReports> {
+  UploadTask? task;
+  File? file;
+  TextEditingController _controller=new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final height=MediaQuery.of(context).size.height;
+    final width=MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: Color(0xff151413),
+      body: Column(
+        children: [
+          SizedBox(height: height*.15,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Container(
+              height:height*.08,
+              width: width*.9,
+              child: FileUpload(
+                label:"Enter subcategory",
+                controller: _controller,
+                onClickedSelect: selectFile,
+                onClickedUpload: uploadFile,
+              ) ,
+            ),
+          ),
+        ],
+      ),
+    );
   }
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if (result == null) return;
+    final path = result.files.single.path!;
+
+    setState(() => file = File(path));
+  }
+
+  Future uploadFile() async {
+    if (file == null) return;
+
+    final fileName = Path.basename(file!.path);
+    final destination = 'files/$fileName';
+
+    task = FirebaseApi.uploadFile(destination, file!);
+    setState(() {});
+
+    if (task == null) return;
+
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+
+    print('Download-Link: $urlDownload');
+  }
+
+  Widget buildUploadStatus(UploadTask task) =>
+      StreamBuilder<TaskSnapshot>(
+        stream: task.snapshotEvents,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final snap = snapshot.data!;
+            final progress = snap.bytesTransferred / snap.totalBytes;
+            final percentage = (progress * 100).toStringAsFixed(2);
+
+            return Text(
+              '$percentage %',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            );
+          } else {
+            return Container();
+          }
+        },
+      );
 }
