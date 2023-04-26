@@ -33,4 +33,5 @@ userRouter.get('/:sp',async (req,res)=>{
 
 })
 
+
 module.exports=userRouter;

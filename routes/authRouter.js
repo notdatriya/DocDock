@@ -14,7 +14,7 @@ authRouter.post('/signup',async (req,res)=>{
         else{
             let {FirstName,LastName,email,passwordd,phone_no,dob,age,gender,city}=req.body;
             passwordd=await bcrypt.hash(passwordd,10);
-            connection.query("insert into Patient(FirstName,LastName,email,passwordd,phone_no,dob, age,gender,city)values(?,?,?,?,?,?,?,?,?)",
+            connection.query("insert into patient(FirstName,LastName,email,passwordd,phone_no,dob, age,gender,city)values(?,?,?,?,?,?,?,?,?)",
             [FirstName,LastName,email,passwordd,phone_no,dob, age,gender,city],(err,result)=>{
                 if(err){
                     res.json({
@@ -55,6 +55,7 @@ authRouter.post('/login',async(req,res)=>{
                     })
                 }
                 else if(result.length>0){
+                    
                     const validpassword=await bcrypt.compare(passwordd,result[0].passwordd);
                     if(validpassword){
                         res.json({
@@ -245,6 +246,37 @@ authRouter.get('/app/:id',async(req,res)=>{
         connection.release();
     })
 })
+
+authRouter.post('/addDoc',async(req,res)=>{
+    dbconnection.getConnection((err,connection)=>{
+        if(err){
+            res.json({
+                error:err.message
+            })
+        }
+
+        else{
+
+            let {patient_id,category,sub_category,link}=req.body;
+            connection.query("insert into reports (patient_id,category,sub_category,link) values (?,?,?,?)",[patient_id,category,sub_category,link],(err,result)=>{
+                if(err){
+                    res.json({
+                        success:0,
+                        error:err.message
+                    })
+                }
+                else{
+                    res.json({
+                        success:1,
+                        message:"document added"
+                    })
+                }
+            })
+        }
+        connection.release();
+    })
+})
+
 
 
 

@@ -22,33 +22,6 @@ app.get('/hello',(req,res)=>{
     })
 })
 
-// app.get('/doctor',(req,res)=>{
-//     res.json([{
-//         "doctorId":0,
-//         "speciality":'Cardiologist',
-//         "name":"Drag",
-//         "experience":"bhdcj",
-//         "clinic:":"dnjdewdw",
-//         "imageURL":'assets/profile_pic.png'
-//     },
-//     {
-//         "doctorId":1,
-//         "speciality":'Cardiologisttt',
-//         "name":"Drag",
-//         "experience":"bhdcj",
-//         "clinic:":"dnjdewdw",
-//         "imageURL":'assets/profile_pic.png'
-//     },
-//     {
-//         "doctorId":2,
-//         "speciality":'Cardiologist',
-//         "name":"Drag",
-//         "experience":"bhdcj",
-//         "clinic:":"dnjdewdw",
-//         "imageURL":'assets/profile_pic.png'
-//     }])
-// })
-
 const authRouter=require('./routes/authRouter');
 const userRouter=require('./routes/userRouter');
 const doctorRouter=require('./routes/doctorRouter');
@@ -58,3 +31,7 @@ const doctorRouter=require('./routes/doctorRouter');
 app.use('/',authRouter);
 app.use('/appointment',userRouter);
 app.use('/doctor',doctorRouter);
+
+
+
+
