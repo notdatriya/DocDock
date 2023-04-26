@@ -257,8 +257,8 @@ authRouter.post('/addDoc',async(req,res)=>{
 
         else{
 
-            let {patient_id,category,sub_category,link}=req.body;
-            connection.query("insert into reports (patient_id,category,sub_category,link) values (?,?,?,?)",[patient_id,category,sub_category,link],(err,result)=>{
+            let {patient_id,category,sub_category,link,about}=req.body;
+            connection.query("insert into reports (patient_id,category,sub_category,link,about) values (?,?,?,?)",[patient_id,category,sub_category,link],(err,result)=>{
                 if(err){
                     res.json({
                         success:0,
@@ -277,6 +277,33 @@ authRouter.post('/addDoc',async(req,res)=>{
     })
 })
 
+
+authRouter.post('/getDoc',async(req,res)=>{
+    dbconnection.getConnection((err,connection)=>{
+        if(err){
+            res.json({
+                error:err.message
+            })
+        }
+
+        else{
+
+            let {patient_id,category,sub_category}=req.body;
+            connection.query("select link ,about from reports where patient_id=? and category=? and sub_category=?",[patient_id,category,sub_category],(err,result)=>{
+                if(err){
+                    res.json({
+                        success:0,
+                        error:err.message
+                    })
+                }
+                else{
+                    res.json([result])
+                }
+            })
+        }
+        connection.release();
+    })
+})
 
 
 
