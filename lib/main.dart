@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Lexend_Deca",
           primarySwatch: Colors.blue,
           brightness: Brightness.dark),
-      home: Dashboard(),
+      home: PatientDocuments(),
       debugShowCheckedModeBanner: false,
     );
   }
