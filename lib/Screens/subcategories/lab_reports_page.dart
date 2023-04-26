@@ -1,46 +1,79 @@
-
 import 'dart:io';
 import 'package:path/path.dart' as Path;
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../CustomUI/file_upload_widget.dart';
 import '../../api/firebase_api.dart';
 
-// 0xff303131
 class LabReports extends StatefulWidget {
-  const LabReports({Key? key}) : super(key: key);
-
+  const LabReports(
+      {Key? key,
+      required this.category,
+      required this.dropDownValue,
+      required this.aboutData})
+      : super(key: key);
+  final String category;
+  final String dropDownValue;
+  final String aboutData;
   @override
   State<LabReports> createState() => _LabReportsState();
 }
 
 class _LabReportsState extends State<LabReports> {
+  void addDoc() async {
+    var url = Uri.parse('https://docdock.onrender.com/addDoc');
+    var requestBody = jsonEncode({
+      "patient_id": 1,
+      "category": widget.category.toString(),
+      "sub_category": widget.dropDownValue,
+      "link": urlDownload,
+      "about": widget.aboutData
+    });
+    var response = await http.post(url,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: '*'
+        },
+        body: requestBody);
+
+    print(response.statusCode);
+  }
+
   UploadTask? task;
   File? file;
-  TextEditingController _controller=new TextEditingController();
+  TextEditingController _controller = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.of(context).size.height;
-    final width=MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xff151413),
       body: Column(
         children: [
-          SizedBox(height: height*.2,child:
-          Center(child:
-          Align(alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0,),
-                child: Text('Lab Reports',style: TextStyle(fontSize: 24),),
-              ))),),
+          SizedBox(
+            height: height * .2,
+            child: Center(
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 50.0,
+                      ),
+                      child: Text(
+                        'Lab Reports',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ))),
+          ),
           Align(
             alignment: Alignment.center,
             child: Container(
-              height: 280,
+              height: 340,
               child: FileUpload(
-                label:"Enter subcategory",
+                label: "Enter subcategory",
                 controller: _controller,
                 onClickedSelect: selectFile,
                 onClickedUpload: uploadFile,
@@ -61,6 +94,7 @@ class _LabReportsState extends State<LabReports> {
     setState(() => file = File(path));
   }
 
+  String urlDownload = '';
   Future uploadFile() async {
     if (file == null) return;
 
@@ -73,13 +107,14 @@ class _LabReportsState extends State<LabReports> {
     if (task == null) return;
 
     final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
+    urlDownload = await snapshot.ref.getDownloadURL();
 
     print('Download-Link: $urlDownload');
+    addDoc();
+    // return urlDownload;
   }
 
-  Widget buildUploadStatus(UploadTask task) =>
-      StreamBuilder<TaskSnapshot>(
+  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
         stream: task.snapshotEvents,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
