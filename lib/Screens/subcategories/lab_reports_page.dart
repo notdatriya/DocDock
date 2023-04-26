@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../CustomUI/file_upload_widget.dart';
 import '../../api/firebase_api.dart';
 
-
+// 0xff303131
 class LabReports extends StatefulWidget {
   const LabReports({Key? key}) : super(key: key);
 
@@ -28,18 +28,23 @@ class _LabReportsState extends State<LabReports> {
       backgroundColor: Color(0xff151413),
       body: Column(
         children: [
-          SizedBox(height: height*.15,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          SizedBox(height: height*.2,child:
+          Center(child:
+          Align(alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0,),
+                child: Text('Lab Reports',style: TextStyle(fontSize: 24),),
+              ))),),
+          Align(
+            alignment: Alignment.center,
             child: Container(
-              height:height*.08,
-              width: width*.9,
+              height: 280,
               child: FileUpload(
                 label:"Enter subcategory",
                 controller: _controller,
                 onClickedSelect: selectFile,
                 onClickedUpload: uploadFile,
-              ) ,
+              ),
             ),
           ),
         ],
