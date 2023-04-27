@@ -27,7 +27,7 @@ doctorRouter.post('/app',async(req,res)=>{
                         slot:"No Data",
                         FirstName:"No appointments for today!",
                         LastName:"",
-                        age:"",
+                        age:0,
                         gender:""
                     }])
                 }
