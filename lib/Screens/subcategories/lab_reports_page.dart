@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:doc_dock/Screens/medical_history_page.dart';
+import 'package:doc_dock/Screens/root_page.dart';
 import 'package:path/path.dart' as Path;
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../CustomUI/file_upload_widget.dart';
 import '../../api/firebase_api.dart';
+
+String fileToBeShown = 'No File Selected!';
 
 class LabReports extends StatefulWidget {
   const LabReports(
@@ -71,7 +76,7 @@ class _LabReportsState extends State<LabReports> {
           Align(
             alignment: Alignment.center,
             child: Container(
-              height: 340,
+              height: 396,
               child: FileUpload(
                 label: "Enter subcategory",
                 controller: _controller,
@@ -92,6 +97,8 @@ class _LabReportsState extends State<LabReports> {
     final path = result.files.single.path!;
 
     setState(() => file = File(path));
+
+    fileToBeShown = file.toString();
   }
 
   String urlDownload = '';
@@ -102,6 +109,23 @@ class _LabReportsState extends State<LabReports> {
     final destination = 'files/$fileName';
 
     task = FirebaseApi.uploadFile(destination, file!);
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.scale,
+      dialogType: DialogType.success,
+      body: Center(
+        child: Text(
+          'Your document was uploaded successfully!',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+      btnOkOnPress: () {
+        fileToBeShown = 'No File Selected!';
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => RootPage()));
+      },
+    )..show();
+    // saveText();
     setState(() {});
 
     if (task == null) return;
@@ -111,6 +135,7 @@ class _LabReportsState extends State<LabReports> {
 
     print('Download-Link: $urlDownload');
     addDoc();
+
     // return urlDownload;
   }
 

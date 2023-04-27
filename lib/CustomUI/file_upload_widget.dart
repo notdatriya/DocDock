@@ -1,3 +1,4 @@
+import 'package:doc_dock/Screens/subcategories/lab_reports_page.dart';
 import 'package:flutter/material.dart';
 
 const List<String> list = <String>[
@@ -79,6 +80,18 @@ class FileUpload extends StatelessWidget {
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 87, 87, 87)),
                   ),
+                ),
+              ),
+            ),
+            SizedBox(height: 34),
+            Container(
+              // height: 50,
+              width: 160,
+              child: Align(
+                child: Text(
+                  fileToBeShown,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
                 ),
               ),
             ),
