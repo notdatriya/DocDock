@@ -228,7 +228,7 @@ authRouter.get('/app/:id',async(req,res)=>{
 
         else{
             let patient_id=req.params.id;
-            connection.query(`select DATE_FORMAT(appointment._date,'%M %d') AS _date,appointment.slot, doctor.FirstName,doctor.LastName,doctor.Specialization from appointment join doctor on appointment.doctor_id=doctor.doctor_id where appointment.patient_id=?`,[patient_id],(err,result)=>{
+            connection.query(`select DATE_FORMAT(appointment._date,'%M %d') AS _date,appointment.slot, doctor.FirstName,doctor.LastName,doctor.Specialization from appointment join doctor on appointment.doctor_id=doctor.doctor_id where appointment.patient_id=? order by appointment._date desc`,[patient_id],(err,result)=>{
                 if(err){
                     res.json({
                         error:err.message
@@ -294,6 +294,12 @@ authRouter.post('/getDoc',async(req,res)=>{
                     res.json({
                         success:0,
                         error:err.message
+                    })
+                }
+                else if(result.length==0){
+                    res.json({
+                        about:"",
+                        link:"No documents uploaded by user for this category!"
                     })
                 }
                 else{
