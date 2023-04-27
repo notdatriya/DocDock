@@ -303,7 +303,7 @@ authRouter.post('/getDoc',async(req,res)=>{
                     })
                 }
                 else{
-                    res.json([result])
+                    res.json(result)
                 }
             })
         }
