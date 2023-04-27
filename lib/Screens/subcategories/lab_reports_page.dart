@@ -43,8 +43,9 @@ class _LabReportsState extends State<LabReports> {
           HttpHeaders.acceptHeader: '*'
         },
         body: requestBody);
-
+    print("done");
     print(response.statusCode);
+    print(response.body);
   }
 
   UploadTask? task;

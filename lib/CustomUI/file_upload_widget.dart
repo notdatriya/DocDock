@@ -15,7 +15,7 @@ const List<String> list = <String>[
   'Digestive Issues',
   'Eye Speciality'
 ];
-String dropdownValue = list.first;
+String dropdownValue = list[2];
 String abt_text = 'Testing';
 
 class FileUpload extends StatelessWidget {
@@ -146,6 +146,7 @@ class FileUpload extends StatelessWidget {
           ],
         ));
   }
+
 }
 
 class DropdownButtonExample extends StatefulWidget {
@@ -182,6 +183,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
       }).toList(),
     );
   }
+
 }
 
 
@@ -197,3 +199,4 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 //     labelStyle: TextStyle(color: Colors.white70),
 //   ),
 // ),
+

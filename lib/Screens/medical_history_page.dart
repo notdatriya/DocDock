@@ -62,7 +62,7 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LabReports(
-                                            category: "LabReports",
+                                            category: "Lab Reports",
                                             dropDownValue: dropdownValue,
                                             aboutData: abt_text,
                                           )));
