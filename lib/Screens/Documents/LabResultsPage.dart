@@ -18,7 +18,7 @@ class _LabResultsPageState extends State<LabResultsPage> {
     final height = MediaQuery.of(context).size.height;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      height: height*.2,
+      height: height*.8,
       child: ListView.builder(
           itemCount: Document.docList.length,
           scrollDirection: Axis.vertical,

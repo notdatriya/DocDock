@@ -59,7 +59,7 @@ class AppointmentTab extends StatelessWidget {
               child: Center(child: Text(
                           '${appList[index].slot}',
                          // '3:30 to 4:30 PM',//slot
-                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 16),
               )),//hardcoded for now
             ),
               Positioned(

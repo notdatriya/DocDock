@@ -14,13 +14,13 @@ class _VitalsPageState extends State<VitalsPage> {
   Widget build(BuildContext context) {
     return ListView(
       children:<Widget>[
-        DocumentTab(label: "Age"),
-        DocumentTab(label: "Height"),
-        DocumentTab(label: "Weight"),
-        DocumentTab(label: "BMI"),
-        DocumentTab(label: "Blood Group"),
-        DocumentTab(label: "Haemoglobin Count"),
-        DocumentTab(label: "Sugar Level"),
+        DocumentTab(label: "Age",text: "19",),
+        DocumentTab(label: "Height",text: "172 cm",),
+        DocumentTab(label: "Weight",text: "69 kgs",),
+        DocumentTab(label: "BMI",text: "22.8",),
+        DocumentTab(label: "Blood Group",text: "O -ve"),
+        DocumentTab(label: "Haemoglobin Count",text: "13.3",),
+        DocumentTab(label: "Sugar Level",text: "98",),
 
       ]
     );

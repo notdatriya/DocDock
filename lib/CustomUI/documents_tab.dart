@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 
 class DocumentTab extends StatelessWidget {
-  const DocumentTab({Key? key,required this.label}) : super(key: key);
+  const DocumentTab({Key? key,required this.label,required this.text}) : super(key: key);
 
   final String label;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,10 +20,12 @@ class DocumentTab extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
               color: Color(0xff2A2C28),
+
             ),
 
             height: 50,
-            width:300
+            width:300,
+            child:Center(child: Text(text)),
           )
         ],
       ),

@@ -34,7 +34,7 @@ List<Widget> pages() {
 
 List<String> categoryList = [
   "Vitals",
-  "Lab Results",
+  "Lab Reports",
   "Diagonistic Imaging",
   "Consultation Reports",
   "Immunization Reports",
@@ -48,8 +48,8 @@ class _PatientDocumentsState extends State<PatientDocuments> {
     var url = Uri.parse('https://docdock.onrender.com/getDoc');
     var requestBody = jsonEncode({
       "patient_id": 1,
-      "category": "Cardiologist",
-      "sub_category": sub_category
+      "category": sub_category,
+      "sub_category": "Heart"
     });
     var response = await http.post(url,
         headers: {

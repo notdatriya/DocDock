@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../models/Document.dart';
 
@@ -10,6 +12,7 @@ class DocumentList extends StatelessWidget {
   final List<Document> docList;
   @override
   Widget build(BuildContext context) {
+    final Uri _url = Uri.parse('https://flutter.dev');
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
@@ -43,12 +46,20 @@ class DocumentList extends StatelessWidget {
             top: 25,
             bottom: 0,
             left: 120,
-            child: Text(
-              docList[index].doclink,
-              style: TextStyle(
-               // fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: Colors.white70,
+            child: GestureDetector(
+              onTap: () {
+                _launchUrl(Uri.parse(docList[index].doclink));},
+              child: Container(
+                width: 680,
+                child: Text(
+                  docList[index].doclink.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                   // fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.white70,
+                  ),
+                ),
               ),
             ),
           ),
@@ -56,5 +67,11 @@ class DocumentList extends StatelessWidget {
       ),
       );
 
+  }
+
+  Future<void> _launchUrl(_url) async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
