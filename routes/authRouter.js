@@ -258,7 +258,7 @@ authRouter.post('/addDoc',async(req,res)=>{
         else{
 
             let {patient_id,category,sub_category,link,about}=req.body;
-            connection.query("insert into reports (patient_id,category,sub_category,link,about) values (?,?,?,?)",[patient_id,category,sub_category,link],(err,result)=>{
+            connection.query("insert into reports (patient_id,category,sub_category,link,about) values (?,?,?,?,?)",[patient_id,category,sub_category,link,about],(err,result)=>{
                 if(err){
                     res.json({
                         success:0,
