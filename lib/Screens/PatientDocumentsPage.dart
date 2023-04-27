@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:doc_web_app/CustomUI/categories_tab.dart';
 import 'package:doc_web_app/Screens/Documents/ConsultationReportsPage.dart';
@@ -41,7 +42,7 @@ List<String> categoryList = [
 ];
 
 class _PatientDocumentsState extends State<PatientDocuments> {
-  get http => null;
+
 
   void getpDocData(sub_category) async {
     var url = Uri.parse('https://docdock.onrender.com/getDoc');
@@ -124,6 +125,7 @@ class _PatientDocumentsState extends State<PatientDocuments> {
                                   onTap: () {
                                     setState(() {
                                       _categoryIndex = index;
+                                      print(categoryList[index]);
                                       getpDocData(categoryList[index]);
                                     });
                                   },
