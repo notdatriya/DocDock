@@ -22,6 +22,15 @@ doctorRouter.post('/app',async(req,res)=>{
                     }
                     )
                 }
+                else if(result.length==0){
+                    res.json([{
+                        slot:"No Data",
+                        FirstName:"No appointments for today!",
+                        LastName:"",
+                        age:"",
+                        gender:""
+                    }])
+                }
                 else{
                     res.json(result)
                 }
