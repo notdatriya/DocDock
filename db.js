@@ -3,10 +3,10 @@ require('dotenv').config()
 const mysql= require('mysql');
 
 let dbconnection=mysql.createPool({
-    host:'sql12.freemysqlhosting.net',
+    host:'sql6.freemysqlhosting.net',
     user:process.env.user,
     password:process.env.password,
-    database:'sql12611473'
+    database:'sql6640151'
 });
 
 

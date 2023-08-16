@@ -82,8 +82,8 @@ authRouter.post('/login',async(req,res)=>{
         
         }
         connection.release();
-    })
-   
+    }) 
+    
 })
 
 
