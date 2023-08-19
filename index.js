@@ -22,6 +22,14 @@ app.get('/hello',(req,res)=>{
     })
 })
 
+const trends = ['Black', 'Jeans', 'crop top', 'shoes'];
+
+// latest fashion trends
+app.get('/trends', (req, res) => {
+  res.json(trends);
+});
+
+
 const authRouter=require('./routes/authRouter');
 const userRouter=require('./routes/userRouter');
 const doctorRouter=require('./routes/doctorRouter');
@@ -31,6 +39,9 @@ const doctorRouter=require('./routes/doctorRouter');
 app.use('/',authRouter);
 app.use('/appointment',userRouter);
 app.use('/doctor',doctorRouter);
+
+
+
 
 
 
